@@ -4,6 +4,8 @@
 
 ### 45-Second 1080p60 Six-Act Motion Graphics Showcase Reel, Live Telemetry Stage & 120 BPM Stereo Synthesiser
 
+**[English](./README.md)** · **[简体中文](./README.zh-CN.md)** · **[日本語](./README.ja.md)** · **[한국어](./README.ko.md)**
+
 *Created by **[@Iamemily2050](https://x.com/Iamemily2050)** (**[@Emily2040](https://github.com/Emily2040)**), directed, engineered, verified, and rendered end-to-end by **Gemini 4 Argon** in Google Antigravity.*
 
 </div>
@@ -30,6 +32,7 @@
 * **Master Video (`1080p60`)**: [`principles-of-motion.mp4`](./principles-of-motion.mp4) (`H.264` High Profile, `1920×1080`, `60/1` fps, `2,700` frames, `45.00s`, stereo `AAC` audio)
 * **Interactive Composition**: [`index.html`](./index.html) (`133` GSAP tweens across `23` easing curves, plus a `60Hz` per-frame telemetry and audio-reactive callback loop)
 * **Synthesised Score (`120.0 BPM`)**: [`soundtrack.wav`](./soundtrack.wav) (`44,100 Hz`, 16-bit stereo PCM, `45.000s`) and [`audio-data.js`](./audio-data.js) (`2,700` frames × `16` normalised frequency bands)
+* **Build Prompts (`4` Languages)**: **[English](./prompts/en.md)** · **[简体中文](./prompts/zh-CN.md)** · **[日本語](./prompts/ja.md)** · **[한국어](./prompts/ko.md)** · **[Prompt Guide](./prompts/README.md)**
 * **Design & Verification Records**: [`DESIGN.md`](./DESIGN.md), [`VERIFICATION_REPORT.md`](./VERIFICATION_REPORT.md), [`ledger.json`](./ledger.json), and [`scripts/run_gates.mjs`](./scripts/run_gates.mjs)
 
 ---
@@ -78,3 +81,10 @@ node scripts/run_gates.mjs
 ```
 
 `scripts/run_gates.mjs` checks the WAV header (`G1`), the 2,700-frame `AUDIO_DATA` array (`G2`), HTML determinism and font rules (`G3`), the 133-tween / 23-ease animation map (`G4`), the `ffprobe` stream properties of `principles-of-motion.mp4` (`G5`), and a failure-injection self-test (`G6`).
+
+---
+
+## Author & Attribution
+
+* **Created & Published by**: **[@Iamemily2050](https://x.com/Iamemily2050)** (**[@Emily2040](https://github.com/Emily2040)**)
+* **AI Direction & Engineering**: Built with **Gemini 4 Argon** in Google Antigravity
