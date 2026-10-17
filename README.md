@@ -1,4 +1,29 @@
-# Gemini 4 Argon Motion Design: Principles of Motion (1080p60)
+<div align="center">
+
+# Gemini 4 Argon Motion Design // Principles of Motion
+
+### 45-Second 1080p60 Six-Act Motion Graphics Showcase Reel, Live Telemetry Stage & 120 BPM Stereo Synthesiser
+
+*Created by **[@Iamemily2050](https://x.com/Iamemily2050)** (**[@Emily2040](https://github.com/Emily2040)**), directed, engineered, verified, and rendered end-to-end by **Gemini 4 Argon** in Google Antigravity.*
+
+</div>
+
+<!-- SHOWCASE_VIDEO -->
+<p align="center">
+  <a href="https://github.com/Emily2040/gemini-4-argon-motion-design/releases/download/v1.0.0/principles-of-motion.mp4">
+    <img src="./frames_audit/showcase-preview.webp" width="100%" alt="Principles of Motion - 45-Second 1080p60 Showcase Video Preview (Click to open full 1080p60 MP4 with 44.1 kHz stereo audio)" />
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/Emily2040/gemini-4-argon-motion-design/releases/download/v1.0.0/principles-of-motion.mp4"><strong>▶ Play / Download Full 45-Second 1080p60 Video With Stereo Sound (MP4, 16.7 MB)</strong></a>
+  ·
+  <a href="https://github.com/Emily2040/gemini-4-argon-motion-design/raw/HEAD/principles-of-motion.mp4">Raw Repository 1080p60 MP4</a>
+  ·
+  <a href="https://github.com/Emily2040/gemini-4-argon-motion-design/releases/download/v1.0.0/soundtrack.wav">44.1 kHz Stereo WAV Score</a>
+</p>
+
+---
 
 **Principles of Motion** is a 45.00-second (`1920×1080` at `60fps`, `2,700` frames) motion graphics studio reel. I built and verified it with Gemini 4 Argon in Google Antigravity using HyperFrames, GSAP 3.14, and a deterministic Python stereo synthesiser.
 
