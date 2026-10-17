@@ -1,0 +1,99 @@
+{
+  "version": 1,
+  "scale": "standard",
+  "max_rounds": 3,
+  "dry_stop": 1,
+  "votes": 1,
+  "dry": 1,
+  "rounds": {
+    "1": {
+      "fresh": 3,
+      "duplicates": 0,
+      "demoted": 0,
+      "rejected": 0,
+      "closed": true
+    },
+    "2": {
+      "fresh": 0,
+      "duplicates": 0,
+      "demoted": 0,
+      "rejected": 0,
+      "closed": true
+    }
+  },
+  "findings": {
+    "f1-act4-header-wrap": {
+      "claim": "Act IV right panel header wrapped the word RIG onto a second line prior to header tightening; resolved in Round 2 by shortening to CONSTRUCTIVIST APERTURE // GOLDEN RATIO RIG",
+      "location": "index.html:L442",
+      "tier": "observed",
+      "source": "C:/Users/emily/.gemini/antigravity/scratch/principles-of-motion/frames_audit/act4_25.5s.png",
+      "dimension": "visual-typography",
+      "severity": "low",
+      "key": "f1-act4-header-wrap",
+      "round": 1,
+      "by": "gravitas-visual-critic",
+      "votes": [
+        {
+          "by": "parent-verifier",
+          "refuted": "no",
+          "tier": "observed",
+          "source": "C:/Users/emily/.gemini/antigravity/scratch/principles-of-motion/frames_audit/act4_25.5s.png",
+          "reason": "Confirmed single-line header rendering in updated Round 2 frame act4_25.5s.png and index.html:L442.",
+          "demoted": null
+        }
+      ],
+      "demoted": null
+    },
+    "f2-act4-badge-padding": {
+      "claim": "Act IV SVG badge FIG 04.A // IRIS had tight right-hand padding at width=170; resolved in Round 2 by expanding badge rect width to 194px",
+      "location": "index.html:L449",
+      "tier": "observed",
+      "source": "C:/Users/emily/.gemini/antigravity/scratch/principles-of-motion/frames_audit/act4_25.5s.png",
+      "dimension": "visual-spacing",
+      "severity": "low",
+      "key": "f2-act4-badge-padding",
+      "round": 1,
+      "by": "gravitas-visual-critic",
+      "votes": [
+        {
+          "by": "parent-verifier",
+          "refuted": "no",
+          "tier": "observed",
+          "source": "C:/Users/emily/.gemini/antigravity/scratch/principles-of-motion/frames_audit/act4_25.5s.png",
+          "reason": "Confirmed balanced 194px badge padding in updated Round 2 frame act4_25.5s.png and index.html:L449.",
+          "demoted": null
+        }
+      ],
+      "demoted": null
+    },
+    "f3-act2-l05-contrast": {
+      "claim": "Act II deepest horizon plane L05 had lower border/text luminance (#6d7a96 / #a3adc2); resolved in Round 2 by brightening to #93a4c4 and #d0d8e8",
+      "location": "index.html:L379",
+      "tier": "observed",
+      "source": "C:/Users/emily/.gemini/antigravity/scratch/principles-of-motion/frames_audit/act2_10.5s.png",
+      "dimension": "visual-contrast",
+      "severity": "info",
+      "key": "f3-act2-l05-contrast",
+      "round": 1,
+      "by": "gravitas-visual-critic",
+      "votes": [
+        {
+          "by": "parent-verifier",
+          "refuted": "no",
+          "tier": "observed",
+          "source": "C:/Users/emily/.gemini/antigravity/scratch/principles-of-motion/frames_audit/act2_10.5s.png",
+          "reason": "Confirmed heightened L05 luminance (#93a4c4 border, #d0d8e8 label) in updated Round 2 frame act2_10.5s.png and index.html:L379.",
+          "demoted": null
+        }
+      ],
+      "demoted": null
+    }
+  },
+  "children": {
+    "bcccbbde-5601-46cc-80e9-5fac7fd0f43a": {
+      "agent": "gravitas-visual-critic",
+      "status": "done",
+      "note": "Audited 6 rendered 1920x1080 PNG frames across Acts I-VI without source access; confirmed visual hierarchy, legibility, 3D stack, and polarity shifts, and noted 3 minor polish items (all resolved in Round 2)."
+    }
+  }
+}

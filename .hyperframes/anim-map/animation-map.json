@@ -1,0 +1,807 @@
+{
+  "compositionId": "main",
+  "duration": 45,
+  "fps": 60,
+  "totalFrames": 2700,
+  "tweens": [
+    {
+      "method": "set",
+      "target": "#s2-p5",
+      "ease": "set",
+      "duration": 0
+    },
+    {
+      "method": "set",
+      "target": "#s2-p4",
+      "ease": "set",
+      "duration": 0
+    },
+    {
+      "method": "set",
+      "target": "#s2-p3",
+      "ease": "set",
+      "duration": 0
+    },
+    {
+      "method": "set",
+      "target": "#s2-p2",
+      "ease": "set",
+      "duration": 0
+    },
+    {
+      "method": "set",
+      "target": "#s2-p1",
+      "ease": "set",
+      "duration": 0
+    },
+    {
+      "method": "from",
+      "target": "#s1-hud-top",
+      "ease": "power3.out",
+      "duration": 0.45
+    },
+    {
+      "method": "from",
+      "target": "#s1-hud-bot",
+      "ease": "power3.out",
+      "duration": 0.45
+    },
+    {
+      "method": "from",
+      "target": "#s1-pill",
+      "ease": "expo.out",
+      "duration": 0.5
+    },
+    {
+      "method": "from",
+      "target": "#s1-title-1",
+      "ease": "expo.out",
+      "duration": 0.55
+    },
+    {
+      "method": "from",
+      "target": "#s1-title-2",
+      "ease": "back.out(1.7)",
+      "duration": 0.65
+    },
+    {
+      "method": "from",
+      "target": "#s1-title-3",
+      "ease": "elastic.out(1.1, 0.4)",
+      "duration": 0.7
+    },
+    {
+      "method": "from",
+      "target": "#s1-thesis",
+      "ease": "power2.out",
+      "duration": 0.55
+    },
+    {
+      "method": "from",
+      "target": "#s1-spec-1",
+      "ease": "expo.out",
+      "duration": 0.45
+    },
+    {
+      "method": "from",
+      "target": "#s1-spec-2",
+      "ease": "power3.out",
+      "duration": 0.45
+    },
+    {
+      "method": "from",
+      "target": "#s1-spec-3",
+      "ease": "circ.out",
+      "duration": 0.45
+    },
+    {
+      "method": "from",
+      "target": "#s1-graph-card",
+      "ease": "expo.out",
+      "duration": 0.65
+    },
+    {
+      "method": "from",
+      "target": "#s1-curve-expo",
+      "ease": "expo.out",
+      "duration": 1.3
+    },
+    {
+      "method": "fromTo",
+      "target": "#s1-puck-1",
+      "ease": "expo.out",
+      "duration": 1.3
+    },
+    {
+      "method": "from",
+      "target": "#s1-curve-elastic",
+      "ease": "power2.out",
+      "duration": 1.6
+    },
+    {
+      "method": "fromTo",
+      "target": "#s1-puck-2",
+      "ease": "elastic.out(1.1, 0.35)",
+      "duration": 1.6
+    },
+    {
+      "method": "from",
+      "target": "#s1-curve-steps",
+      "ease": "steps(6)",
+      "duration": 1.4
+    },
+    {
+      "method": "fromTo",
+      "target": "#s1-puck-3",
+      "ease": "steps(6)",
+      "duration": 1.4
+    },
+    {
+      "method": "fromTo",
+      "target": "#s1-playhead",
+      "ease": "sine.inOut",
+      "duration": 4.8
+    },
+    {
+      "method": "from",
+      "target": "#s1-dot-expo, #s1-dot-elastic, #s1-dot-steps",
+      "ease": "back.out(2)",
+      "duration": 0.4
+    },
+    {
+      "method": "fromTo",
+      "target": "#wipe1-",
+      "ease": "power3.inOut",
+      "duration": 0.24
+    },
+    {
+      "method": "set",
+      "target": "#scene1",
+      "ease": "set",
+      "duration": 0
+    },
+    {
+      "method": "set",
+      "target": "#scene2",
+      "ease": "set",
+      "duration": 0
+    },
+    {
+      "method": "to",
+      "target": "#wipe1-",
+      "ease": "power3.inOut",
+      "duration": 0.24
+    },
+    {
+      "method": "from",
+      "target": "#s2-hud-top",
+      "ease": "power3.out",
+      "duration": 0.45
+    },
+    {
+      "method": "from",
+      "target": "#s2-hud-bot",
+      "ease": "power3.out",
+      "duration": 0.45
+    },
+    {
+      "method": "from",
+      "target": "#s2-pill",
+      "ease": "expo.out",
+      "duration": 0.45
+    },
+    {
+      "method": "from",
+      "target": "#s2-title-1",
+      "ease": "expo.out",
+      "duration": 0.55
+    },
+    {
+      "method": "from",
+      "target": "#s2-title-2",
+      "ease": "power4.out",
+      "duration": 0.6
+    },
+    {
+      "method": "from",
+      "target": "#s2-title-3",
+      "ease": "back.out(1.6)",
+      "duration": 0.65
+    },
+    {
+      "method": "from",
+      "target": "#s2-thesis",
+      "ease": "sine.out",
+      "duration": 0.5
+    },
+    {
+      "method": "from",
+      "target": "#s2-row-1, #s2-row-2, #s2-row-3, #s2-row-4, #s2-row-5",
+      "ease": "power3.out",
+      "duration": 0.45
+    },
+    {
+      "method": "from",
+      "target": "#s2-viewport",
+      "ease": "expo.out",
+      "duration": 0.6
+    },
+    {
+      "method": "from",
+      "target": "#s2-p5, #s2-p4, #s2-p3, #s2-p2, #s2-p1",
+      "ease": "back.out(1.4)",
+      "duration": 0.65
+    },
+    {
+      "method": "fromTo",
+      "target": "#s2-rig",
+      "ease": "sine.inOut",
+      "duration": 6.4
+    },
+    {
+      "method": "to",
+      "target": "#scene2",
+      "ease": "power3.in",
+      "duration": 0.45
+    },
+    {
+      "method": "fromTo",
+      "target": "#scene3",
+      "ease": "power3.out",
+      "duration": 0.45
+    },
+    {
+      "method": "from",
+      "target": "#s3-hud-top",
+      "ease": "power3.out",
+      "duration": 0.45
+    },
+    {
+      "method": "from",
+      "target": "#s3-hud-bot",
+      "ease": "power3.out",
+      "duration": 0.45
+    },
+    {
+      "method": "from",
+      "target": "#s3-pill",
+      "ease": "expo.out",
+      "duration": 0.45
+    },
+    {
+      "method": "from",
+      "target": "#s3-title-1, #s3-title-2, #s3-title-3",
+      "ease": "expo.out",
+      "duration": 0.55
+    },
+    {
+      "method": "from",
+      "target": "#s3-lock-badge",
+      "ease": "back.out(1.8)",
+      "duration": 0.5
+    },
+    {
+      "method": "from",
+      "target": "#s3-chart-panel",
+      "ease": "power3.out",
+      "duration": 0.55
+    },
+    {
+      "method": "from",
+      "target": "#s3-kpi-1, #s3-kpi-2, #s3-kpi-3",
+      "ease": "expo.out",
+      "duration": 0.55
+    },
+    {
+      "method": "from",
+      "target": "#s3-corridor",
+      "ease": "sine.inOut",
+      "duration": 0.8
+    },
+    {
+      "method": "from",
+      "target": "#s3-spline-base",
+      "ease": "power2.inOut",
+      "duration": 2.6
+    },
+    {
+      "method": "from",
+      "target": "#s3-spline-main",
+      "ease": "expo.out",
+      "duration": 2.9
+    },
+    {
+      "method": "fromTo",
+      "target": "#s3-scanline",
+      "ease": "power2.out",
+      "duration": 3.4
+    },
+    {
+      "method": "from",
+      "target": "#s3-anomaly-target",
+      "ease": "elastic.out(1.2, 0.4)",
+      "duration": 0.55
+    },
+    {
+      "method": "fromTo",
+      "target": "#shutter-top",
+      "ease": "power3.in",
+      "duration": 0.25
+    },
+    {
+      "method": "fromTo",
+      "target": "#shutter-bot",
+      "ease": "power3.in",
+      "duration": 0.25
+    },
+    {
+      "method": "set",
+      "target": "#scene3",
+      "ease": "set",
+      "duration": 0
+    },
+    {
+      "method": "set",
+      "target": "#scene4",
+      "ease": "set",
+      "duration": 0
+    },
+    {
+      "method": "to",
+      "target": "#shutter-top",
+      "ease": "expo.out",
+      "duration": 0.28
+    },
+    {
+      "method": "to",
+      "target": "#shutter-bot",
+      "ease": "expo.out",
+      "duration": 0.28
+    },
+    {
+      "method": "from",
+      "target": "#s4-hud-top",
+      "ease": "power3.out",
+      "duration": 0.45
+    },
+    {
+      "method": "from",
+      "target": "#s4-hud-bot",
+      "ease": "power3.out",
+      "duration": 0.45
+    },
+    {
+      "method": "from",
+      "target": "#s4-pill",
+      "ease": "expo.out",
+      "duration": 0.45
+    },
+    {
+      "method": "from",
+      "target": "#s4-title-1",
+      "ease": "expo.out",
+      "duration": 0.55
+    },
+    {
+      "method": "from",
+      "target": "#s4-title-2",
+      "ease": "back.out(1.6)",
+      "duration": 0.6
+    },
+    {
+      "method": "from",
+      "target": "#s4-title-3",
+      "ease": "power4.out",
+      "duration": 0.6
+    },
+    {
+      "method": "from",
+      "target": "#s4-thesis",
+      "ease": "sine.out",
+      "duration": 0.5
+    },
+    {
+      "method": "from",
+      "target": "#s4-card-1, #s4-card-2, #s4-card-3",
+      "ease": "back.out(1.5)",
+      "duration": 0.5
+    },
+    {
+      "method": "from",
+      "target": "#s4-geo-panel",
+      "ease": "expo.out",
+      "duration": 0.6
+    },
+    {
+      "method": "from",
+      "target": "#s4-rotor-outer",
+      "ease": "expo.out",
+      "duration": 0.5
+    },
+    {
+      "method": "from",
+      "target": "#s4-rotor-mid",
+      "ease": "back.out(1.7)",
+      "duration": 0.5
+    },
+    {
+      "method": "from",
+      "target": "#s4-rotor-inner",
+      "ease": "elastic.out(1.1, 0.4)",
+      "duration": 0.5
+    },
+    {
+      "method": "to",
+      "target": "#s4-rotor-outer",
+      "ease": "sine.inOut",
+      "duration": 5.7
+    },
+    {
+      "method": "to",
+      "target": "#s4-rotor-mid",
+      "ease": "power2.inOut",
+      "duration": 5.7
+    },
+    {
+      "method": "to",
+      "target": "#s4-rotor-inner",
+      "ease": "expo.inOut",
+      "duration": 5.7
+    },
+    {
+      "method": "set",
+      "target": "#scene5",
+      "ease": "set",
+      "duration": 0
+    },
+    {
+      "method": "fromTo",
+      "target": "#scene5",
+      "ease": "power3.inOut",
+      "duration": 0.48
+    },
+    {
+      "method": "set",
+      "target": "#scene4",
+      "ease": "set",
+      "duration": 0
+    },
+    {
+      "method": "set",
+      "target": "#scene5",
+      "ease": "set",
+      "duration": 0
+    },
+    {
+      "method": "from",
+      "target": "#s5-hud-top",
+      "ease": "power3.out",
+      "duration": 0.45
+    },
+    {
+      "method": "from",
+      "target": "#s5-hud-bot",
+      "ease": "power3.out",
+      "duration": 0.45
+    },
+    {
+      "method": "from",
+      "target": "#s5-pill",
+      "ease": "expo.out",
+      "duration": 0.45
+    },
+    {
+      "method": "from",
+      "target": "#s5-title-1",
+      "ease": "expo.out",
+      "duration": 0.5
+    },
+    {
+      "method": "from",
+      "target": "#s5-title-2",
+      "ease": "back.out(1.7)",
+      "duration": 0.55
+    },
+    {
+      "method": "from",
+      "target": "#s5-title-3",
+      "ease": "elastic.out(1.1, 0.4)",
+      "duration": 0.6
+    },
+    {
+      "method": "from",
+      "target": "#s5-thesis",
+      "ease": "sine.out",
+      "duration": 0.45
+    },
+    {
+      "method": "from",
+      "target": "#s5-meter-0, #s5-meter-1, #s5-meter-2, #s5-meter-3",
+      "ease": "power3.out",
+      "duration": 0.45
+    },
+    {
+      "method": "from",
+      "target": "#s5-chamber-card",
+      "ease": "expo.out",
+      "duration": 0.55
+    },
+    {
+      "method": "fromTo",
+      "target": "#blind-",
+      "ease": "power3.inOut",
+      "duration": 0.2
+    },
+    {
+      "method": "set",
+      "target": "#scene5",
+      "ease": "set",
+      "duration": 0
+    },
+    {
+      "method": "set",
+      "target": "#scene6",
+      "ease": "set",
+      "duration": 0
+    },
+    {
+      "method": "to",
+      "target": "#blind-",
+      "ease": "power3.inOut",
+      "duration": 0.2
+    },
+    {
+      "method": "from",
+      "target": "#s6-hud-top",
+      "ease": "power3.out",
+      "duration": 0.45
+    },
+    {
+      "method": "from",
+      "target": "#s6-hud-bot",
+      "ease": "power3.out",
+      "duration": 0.45
+    },
+    {
+      "method": "from",
+      "target": "#s6-hero-banner",
+      "ease": "expo.out",
+      "duration": 0.55
+    },
+    {
+      "method": "from",
+      "target": "#s6-master-lock",
+      "ease": "back.out(1.7)",
+      "duration": 0.6
+    },
+    {
+      "method": "from",
+      "target": "#s6-bento-1, #s6-bento-2, #s6-bento-3, #s6-bento-4, #s6-bento-5",
+      "ease": "expo.out",
+      "duration": 0.55
+    },
+    {
+      "method": "to",
+      "target": "#s6-mini-rotor",
+      "ease": "none",
+      "duration": 5.8
+    },
+    {
+      "method": "to",
+      "target": "#s6-mini-pulse",
+      "ease": "sine.inOut",
+      "duration": 0.5
+    },
+    {
+      "method": "to",
+      "target": "#final-fade-overlay",
+      "ease": "power2.inOut",
+      "duration": 0.8
+    },
+    {
+      "method": "fromTo",
+      "target": "#wipe1-0",
+      "ease": "power3.inOut",
+      "duration": 0.24
+    },
+    {
+      "method": "to",
+      "target": "#wipe1-0",
+      "ease": "power3.inOut",
+      "duration": 0.24
+    },
+    {
+      "method": "fromTo",
+      "target": "#wipe1-1",
+      "ease": "power3.inOut",
+      "duration": 0.24
+    },
+    {
+      "method": "to",
+      "target": "#wipe1-1",
+      "ease": "power3.inOut",
+      "duration": 0.24
+    },
+    {
+      "method": "fromTo",
+      "target": "#wipe1-2",
+      "ease": "power3.inOut",
+      "duration": 0.24
+    },
+    {
+      "method": "to",
+      "target": "#wipe1-2",
+      "ease": "power3.inOut",
+      "duration": 0.24
+    },
+    {
+      "method": "fromTo",
+      "target": "#wipe1-3",
+      "ease": "power3.inOut",
+      "duration": 0.24
+    },
+    {
+      "method": "to",
+      "target": "#wipe1-3",
+      "ease": "power3.inOut",
+      "duration": 0.24
+    },
+    {
+      "method": "fromTo",
+      "target": "#wipe1-4",
+      "ease": "power3.inOut",
+      "duration": 0.24
+    },
+    {
+      "method": "to",
+      "target": "#wipe1-4",
+      "ease": "power3.inOut",
+      "duration": 0.24
+    },
+    {
+      "method": "fromTo",
+      "target": "#blind-0",
+      "ease": "power3.inOut",
+      "duration": 0.2
+    },
+    {
+      "method": "to",
+      "target": "#blind-0",
+      "ease": "power3.inOut",
+      "duration": 0.2
+    },
+    {
+      "method": "fromTo",
+      "target": "#blind-1",
+      "ease": "power3.inOut",
+      "duration": 0.2
+    },
+    {
+      "method": "to",
+      "target": "#blind-1",
+      "ease": "power3.inOut",
+      "duration": 0.2
+    },
+    {
+      "method": "fromTo",
+      "target": "#blind-2",
+      "ease": "power3.inOut",
+      "duration": 0.2
+    },
+    {
+      "method": "to",
+      "target": "#blind-2",
+      "ease": "power3.inOut",
+      "duration": 0.2
+    },
+    {
+      "method": "fromTo",
+      "target": "#blind-3",
+      "ease": "power3.inOut",
+      "duration": 0.2
+    },
+    {
+      "method": "to",
+      "target": "#blind-3",
+      "ease": "power3.inOut",
+      "duration": 0.2
+    },
+    {
+      "method": "fromTo",
+      "target": "#blind-4",
+      "ease": "power3.inOut",
+      "duration": 0.2
+    },
+    {
+      "method": "to",
+      "target": "#blind-4",
+      "ease": "power3.inOut",
+      "duration": 0.2
+    },
+    {
+      "method": "fromTo",
+      "target": "#blind-5",
+      "ease": "power3.inOut",
+      "duration": 0.2
+    },
+    {
+      "method": "to",
+      "target": "#blind-5",
+      "ease": "power3.inOut",
+      "duration": 0.2
+    },
+    {
+      "method": "fromTo",
+      "target": "#blind-6",
+      "ease": "power3.inOut",
+      "duration": 0.2
+    },
+    {
+      "method": "to",
+      "target": "#blind-6",
+      "ease": "power3.inOut",
+      "duration": 0.2
+    },
+    {
+      "method": "fromTo",
+      "target": "#blind-7",
+      "ease": "power3.inOut",
+      "duration": 0.2
+    },
+    {
+      "method": "to",
+      "target": "#blind-7",
+      "ease": "power3.inOut",
+      "duration": 0.2
+    },
+    {
+      "method": "fromTo",
+      "target": "#blind-8",
+      "ease": "power3.inOut",
+      "duration": 0.2
+    },
+    {
+      "method": "to",
+      "target": "#blind-8",
+      "ease": "power3.inOut",
+      "duration": 0.2
+    },
+    {
+      "method": "fromTo",
+      "target": "#blind-9",
+      "ease": "power3.inOut",
+      "duration": 0.2
+    },
+    {
+      "method": "to",
+      "target": "#blind-9",
+      "ease": "power3.inOut",
+      "duration": 0.2
+    },
+    {
+      "method": "fromTo",
+      "target": "#blind-10",
+      "ease": "power3.inOut",
+      "duration": 0.2
+    },
+    {
+      "method": "to",
+      "target": "#blind-10",
+      "ease": "power3.inOut",
+      "duration": 0.2
+    },
+    {
+      "method": "fromTo",
+      "target": "#blind-11",
+      "ease": "power3.inOut",
+      "duration": 0.2
+    },
+    {
+      "method": "to",
+      "target": "#blind-11",
+      "ease": "power3.inOut",
+      "duration": 0.2
+    }
+  ],
+  "flags": []
+}

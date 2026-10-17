@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" /><title>PRINCIPLES OF MOTION — 45s Motion Graphics Showcase</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script><script src="audio-data.js"></script>
+    <style>
+      @font-face {
+        font-family: "Big Shoulders Display";
+        src: url("fonts/big-shoulders-300.woff2") format("woff2");
+        font-weight: 300;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Big Shoulders Display";
+        src: url("fonts/big-shoulders-900.woff2") format("woff2");
+        font-weight: 900;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Instrument Serif";
+        src: url("fonts/instrument-serif-italic.woff2") format("woff2");
+        font-weight: 400;
+        font-style: italic;
+      }
+      @font-face {
+        font-family: "IBM Plex Mono";
+        src: url("fonts/ibm-plex-mono-400.woff2") format("woff2");
+        font-weight: 400;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "IBM Plex Mono";
+        src: url("fonts/ibm-plex-mono-600.woff2") format("woff2");
+        font-weight: 600;
+        font-style: normal;
+      }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body {
+        margin: 0; width: 1920px; height: 1080px; overflow: hidden;
+        background: #090a0d; font-family: "IBM Plex Mono", monospace;
+        -webkit-font-smoothing: antialiased;
+      }
+      #root {
+        position: relative; width: 1920px; height: 1080px;
+        overflow: hidden; background: #090a0d;
+      }
+      .scene {
+        position: absolute; top: 0; left: 0; width: 1920px; height: 1080px; overflow: hidden;
+      }
+      #scene1 { z-index: 1; background: radial-gradient(circle at 72% 45%, #151a28 0%, #090a0d 72%); }
+      #scene2 { z-index: 2; background: radial-gradient(circle at 68% 50%, #141b2d 0%, #090a0d 74%); opacity: 0; }
+      #scene3 { z-index: 3; background: radial-gradient(circle at 40% 55%, #141926 0%, #090a0d 75%); opacity: 0; }
+      #scene4 { z-index: 4; background: #f4f1ea; opacity: 0; }
+      #scene5 { z-index: 5; background: radial-gradient(circle at 70% 52%, #171c2b 0%, #090a0d 74%); opacity: 0; }
+      #scene6 { z-index: 6; background: #f4f1ea; opacity: 0; }
+
+      .bg-grid-dark {
+        position: absolute; top: 0; left: 0; width: 1920px; height: 1080px;
+        background-image:
+          linear-gradient(to right, rgba(163, 173, 194, 0.07) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(163, 173, 194, 0.07) 1px, transparent 1px);
+        background-size: 120px 120px; pointer-events: none; z-index: 0;
+      }
+      .bg-grid-light {
+        position: absolute; top: 0; left: 0; width: 1920px; height: 1080px;
+        background-image:
+          linear-gradient(to right, rgba(11, 12, 16, 0.08) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(11, 12, 16, 0.08) 1px, transparent 1px);
+        background-size: 120px 120px; pointer-events: none; z-index: 0;
+      }
+      .bg-watermark-dark {
+        position: absolute; right: -30px; bottom: -70px;
+        font-family: "Big Shoulders Display", sans-serif; font-weight: 900; font-size: 460px;
+        line-height: 0.8; letter-spacing: -0.04em; color: rgba(247, 246, 242, 0.035);
+        pointer-events: none; user-select: none; z-index: 0;
+      }
+      .bg-watermark-light {
+        position: absolute; right: -20px; bottom: -70px;
+        font-family: "Big Shoulders Display", sans-serif; font-weight: 900; font-size: 460px;
+        line-height: 0.8; letter-spacing: -0.04em; color: rgba(11, 12, 16, 0.045);
+        pointer-events: none; user-select: none; z-index: 0;
+      }
+
+      .scene-content {
+        position: relative; z-index: 2; display: flex; flex-direction: column;
+        justify-content: space-between; width: 100%; height: 100%;
+        padding: 56px 88px; gap: 28px; box-sizing: border-box;
+      }
+      .hud-bar-dark {
+        display: flex; flex-direction: row; align-items: center; justify-content: space-between;
+        width: 100%; height: 54px; padding: 0 24px; background: #131722; border: 1px solid #2a3246;
+        color: #f7f6f2; font-family: "IBM Plex Mono", monospace; font-size: 18px; font-weight: 600;
+        font-variant-numeric: tabular-nums; font-variant-ligatures: none;
+      }
+      .hud-bar-light {
+        display: flex; flex-direction: row; align-items: center; justify-content: space-between;
+        width: 100%; height: 54px; padding: 0 24px; background: #e6e1d6; border: 2px solid #0b0c10;
+        color: #0b0c10; font-family: "IBM Plex Mono", monospace; font-size: 18px; font-weight: 600;
+        font-variant-numeric: tabular-nums; font-variant-ligatures: none;
+      }
+      .hud-group { display: flex; flex-direction: row; align-items: center; gap: 28px; }
+      .hud-muted-dark { color: #b4bdd0; font-weight: 400; }
+      .hud-muted-light { color: #363b47; font-weight: 500; }
+      .hud-accent-volt { color: #d4ff00; font-weight: 600; }
+      .hud-accent-vermilion { color: #ff6452; font-weight: 600; }
+      .hud-accent-crimson { color: #b01204; font-weight: 600; }
+      .hud-accent-cobalt { color: #0033b8; font-weight: 600; }
+
+      .stage-split {
+        display: flex; flex-direction: row; align-items: stretch; justify-content: space-between;
+        width: 100%; flex: 1; gap: 48px; min-height: 0;
+      }
+      .col-left {
+        display: flex; flex-direction: column; justify-content: space-between;
+        width: 820px; flex-shrink: 0;
+      }
+      .col-right {
+        display: flex; flex-direction: column; justify-content: space-between;
+        flex: 1; min-width: 0;
+      }
+      .act-pill-dark {
+        display: inline-flex; align-items: center; gap: 14px; align-self: flex-start;
+        padding: 10px 20px; background: #171d2c; border-left: 4px solid #d4ff00;
+        border-top: 1px solid #2e3852; border-right: 1px solid #2e3852; border-bottom: 1px solid #2e3852;
+        color: #d4ff00; font-family: "IBM Plex Mono", monospace; font-size: 18px; font-weight: 600;
+        letter-spacing: 0.06em;
+      }
+      .act-pill-light {
+        display: inline-flex; align-items: center; gap: 14px; align-self: flex-start;
+        padding: 10px 20px; background: #0b0c10; color: #f4f1ea;
+        font-family: "IBM Plex Mono", monospace; font-size: 18px; font-weight: 600;
+        letter-spacing: 0.06em;
+      }
+
+      .hero-stack { display: flex; flex-direction: column; gap: 4px; }
+      .display-line-dark {
+        font-family: "Big Shoulders Display", sans-serif; font-size: 112px; font-weight: 900;
+        line-height: 0.92; letter-spacing: -0.03em; color: #f7f6f2; text-transform: uppercase;
+      }
+      .display-line-light-wt {
+        font-family: "Big Shoulders Display", sans-serif; font-size: 104px; font-weight: 300;
+        line-height: 0.94; letter-spacing: -0.02em; color: #d4ff00; text-transform: uppercase;
+      }
+      .display-line-vermilion {
+        font-family: "Big Shoulders Display", sans-serif; font-size: 112px; font-weight: 900;
+        line-height: 0.92; letter-spacing: -0.03em; color: #ff6452; text-transform: uppercase;
+      }
+      .display-line-cyan {
+        font-family: "Big Shoulders Display", sans-serif; font-size: 104px; font-weight: 300;
+        line-height: 0.94; letter-spacing: -0.02em; color: #5ce1e6; text-transform: uppercase;
+      }
+      .display-line-ink {
+        font-family: "Big Shoulders Display", sans-serif; font-size: 112px; font-weight: 900;
+        line-height: 0.92; letter-spacing: -0.03em; color: #0b0c10; text-transform: uppercase;
+      }
+      .display-line-crimson {
+        font-family: "Big Shoulders Display", sans-serif; font-size: 104px; font-weight: 300;
+        line-height: 0.94; letter-spacing: -0.02em; color: #b01204; text-transform: uppercase;
+      }
+      .display-line-cobalt {
+        font-family: "Big Shoulders Display", sans-serif; font-size: 112px; font-weight: 900;
+        line-height: 0.92; letter-spacing: -0.03em; color: #0033b8; text-transform: uppercase;
+      }
+      .serif-counter {
+        font-family: "Instrument Serif", serif; font-style: italic; font-weight: 400;
+        text-transform: none; letter-spacing: -0.01em;
+      }
+      .thesis-dark {
+        font-family: "IBM Plex Mono", monospace; font-size: 21px; font-weight: 400;
+        line-height: 1.48; color: #c4cde0; max-width: 780px;
+      }
+      .thesis-light {
+        font-family: "IBM Plex Mono", monospace; font-size: 21px; font-weight: 400;
+        line-height: 1.48; color: #2c303b; max-width: 780px;
+      }
+
+      .panel-dark {
+        display: flex; flex-direction: column; justify-content: space-between;
+        background: #131722; border: 1px solid #2b344a; padding: 28px 32px;
+      }
+      .panel-light {
+        display: flex; flex-direction: column; justify-content: space-between;
+        background: #e6e1d6; border: 2px solid #0b0c10; padding: 28px 32px;
+      }
+      .panel-header-row {
+        display: flex; flex-direction: row; align-items: center; justify-content: space-between;
+        width: 100%; padding-bottom: 14px; border-bottom: 1px solid rgba(180, 189, 208, 0.2);
+      }
+      .panel-header-row-light {
+        display: flex; flex-direction: row; align-items: center; justify-content: space-between;
+        width: 100%; padding-bottom: 14px; border-bottom: 2px solid #0b0c10;
+      }
+      .panel-title-dark {
+        font-family: "IBM Plex Mono", monospace; font-size: 19px; font-weight: 600;
+        color: #f7f6f2; letter-spacing: 0.04em;
+      }
+      .panel-title-light {
+        font-family: "IBM Plex Mono", monospace; font-size: 19px; font-weight: 600;
+        color: #0b0c10; letter-spacing: 0.04em;
+      }
+
+      .specimen-stack { display: flex; flex-direction: column; gap: 16px; width: 100%; }
+      .specimen-row {
+        display: flex; flex-direction: column; gap: 8px; padding: 14px 20px;
+        background: #131722; border: 1px solid #283044;
+      }
+      .specimen-meta {
+        display: flex; flex-direction: row; justify-content: space-between; align-items: center;
+        font-size: 18px; font-weight: 600; font-variant-numeric: tabular-nums;
+      }
+      .specimen-rail {
+        position: relative; width: 100%; height: 18px; background: #090a0d; border: 1px solid #2a3348;
+      }
+      .specimen-puck { position: absolute; top: 2px; left: 4px; width: 44px; height: 12px; }
+
+      .stage-3d-viewport {
+        position: relative; width: 100%; height: 100%; perspective: 1250px;
+        display: flex; align-items: center; justify-content: center;
+        background: #0d111b; border: 1px solid #2b344a; overflow: hidden;
+      }
+      .rig-3d {
+        position: relative; width: 780px; height: 520px; transform-style: preserve-3d; z-index: 2;
+      }
+      .plane-3d {
+        position: absolute; width: 520px; height: 88px;
+        border: 2px solid #5ce1e6; background: #121826;
+        display: flex; flex-direction: row; align-items: center; justify-content: space-between; padding: 0 24px;
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.65);
+      }
+      .plane-tag {
+        font-family: "IBM Plex Mono", monospace; font-size: 18px; font-weight: 600;
+        color: #f7f6f2; font-variant-numeric: tabular-nums; white-space: nowrap;
+      }
+      .plane-metric {
+        font-family: "Big Shoulders Display", sans-serif; font-size: 46px; font-weight: 900;
+        color: #d4ff00; line-height: 1; white-space: nowrap;
+      }
+      .depth-table { display: flex; flex-direction: column; gap: 10px; width: 100%; }
+      .depth-row {
+        display: flex; flex-direction: row; align-items: center; justify-content: space-between;
+        padding: 12px 18px; background: #131722; border-left: 4px solid #5ce1e6;
+        border-top: 1px solid #283044; border-right: 1px solid #283044; border-bottom: 1px solid #283044;
+        font-size: 18px; color: #f7f6f2; font-variant-numeric: tabular-nums;
+      }
+
+      .kpi-stack {
+        display: flex; flex-direction: column; justify-content: space-between;
+        gap: 20px; width: 580px; flex-shrink: 0;
+      }
+      .kpi-card {
+        display: flex; flex-direction: column; justify-content: space-between;
+        flex: 1; padding: 22px 28px; background: #131722; border: 1px solid #2b344a;
+      }
+      .kpi-value {
+        font-family: "Big Shoulders Display", sans-serif; font-size: 82px; font-weight: 900;
+        line-height: 0.95; letter-spacing: -0.02em; font-variant-numeric: tabular-nums;
+      }
+
+      .geo-spec-grid { display: flex; flex-direction: row; gap: 16px; width: 100%; }
+      .geo-spec-card {
+        flex: 1; display: flex; flex-direction: column; gap: 8px; padding: 18px 20px;
+        background: #e6e1d6; border: 2px solid #0b0c10;
+      }
+      .geo-spec-num {
+        font-family: "Big Shoulders Display", sans-serif; font-size: 64px; font-weight: 900;
+        line-height: 0.95; color: #0b0c10; font-variant-numeric: tabular-nums;
+      }
+
+      .acoustic-meter-stack { display: flex; flex-direction: column; gap: 14px; width: 100%; }
+      .acoustic-row {
+        display: flex; flex-direction: column; gap: 8px; padding: 12px 18px;
+        background: #131722; border: 1px solid #2b344a;
+      }
+      .acoustic-track {
+        width: 100%; height: 14px; background: #090a0d; border: 1px solid #2b344a; overflow: hidden;
+      }
+      .acoustic-fill { width: 100%; height: 100%; transform-origin: left center; }
+
+      .bento-grid-5 {
+        display: flex; flex-direction: row; align-items: stretch; justify-content: space-between;
+        gap: 20px; width: 100%; flex: 1; min-height: 0;
+      }
+      .bento-card {
+        flex: 1; display: flex; flex-direction: column; justify-content: space-between;
+        padding: 22px 22px; background: #e6e1d6; border: 2px solid #0b0c10; min-width: 0;
+      }
+      .bento-num {
+        font-family: "Big Shoulders Display", sans-serif; font-size: 64px; font-weight: 900;
+        line-height: 0.92; color: #0b0c10;
+      }
+      .bento-status {
+        display: inline-block; align-self: flex-start; padding: 6px 12px;
+        background: #0b0c10; color: #d4ff00; font-family: "IBM Plex Mono", monospace;
+        font-size: 16px; font-weight: 600;
+      }
+
+      .wipe-block {
+        position: absolute; top: 0; left: 0; width: 1920px; height: 1080px;
+        z-index: 30; pointer-events: none; opacity: 0;
+      }
+      .shutter-half {
+        position: absolute; left: 0; width: 1920px; height: 540px;
+        background: #0b0c10; z-index: 35; pointer-events: none; opacity: 0;
+        display: flex; align-items: center; justify-content: center;
+      }
+      #shutter-top { top: 0; border-bottom: 4px solid #ff2e17; }
+      #shutter-bot { top: 540px; border-top: 4px solid #d4ff00; }
+      .blind-strip {
+        position: absolute; left: 0; width: 1920px; height: 92px;
+        z-index: 40; pointer-events: none; opacity: 0;
+      }
+      #final-fade-overlay {
+        position: absolute; top: 0; left: 0; width: 1920px; height: 1080px;
+        background: #090a0d; z-index: 50; opacity: 0; pointer-events: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-width="1920" data-height="1080" data-start="0" data-duration="45">
+      <audio id="master-audio" data-start="0" data-duration="45" data-track-index="2" src="soundtrack.wav" data-volume="1"></audio>
+      <!-- ACT I (0.00s - 7.50s): 01 / INERTIA & IMPULSE -->
+      <div id="scene1" class="scene">
+        <div class="bg-grid-dark" data-layout-ignore></div><div class="bg-watermark-dark" data-layout-ignore>01</div>
+        <div class="scene-content">
+          <div id="s1-hud-top" class="hud-bar-dark"><div class="hud-group"><span class="hud-accent-volt">STUDIO REEL // PRINCIPLES OF MOTION</span><span class="hud-muted-dark">DISCIPLINE 01/06 · KINEMATIC EASING</span></div><div class="hud-group"><span class="hud-muted-dark">TEMPO 120.0 BPM</span><span id="s1-frame-readout" class="hud-accent-vermilion">FRAME 0000 / 2700</span></div></div>
+          <div class="stage-split">
+            <div class="col-left">
+              <div id="s1-pill" class="act-pill-dark"><span>ACT 01 // INERTIA &amp; IMPULSE</span><span>Δt = 16.67ms</span></div>
+              <div class="hero-stack"><div id="s1-title-1" class="display-line-dark">INERTIA IS</div><div id="s1-title-2" class="display-line-light-wt"><span class="serif-counter">Emotion</span> IN</div><div id="s1-title-3" class="display-line-vermilion">VELOCITY.</div></div>
+              <p id="s1-thesis" class="thesis-dark">The transition is the verb; the easing curve is the adverb. Mass, snapping precision, and harmonic overshoot emerge from derivative control.</p>
+              <div class="specimen-stack">
+                <div id="s1-spec-1" class="specimen-row"><div class="specimen-meta"><span class="hud-accent-volt">01 · EXPO.OUT // BALLISTIC DECELERATION</span><span id="s1-val-1" class="hud-muted-dark">f(t) = 1 - 2^(-10t) · v = 1.00</span></div><div class="specimen-rail"><div id="s1-puck-1" class="specimen-puck" style="background: #d4ff00;"></div></div></div>
+                <div id="s1-spec-2" class="specimen-row"><div class="specimen-meta"><span class="hud-accent-vermilion">02 · ELASTIC.OUT(1.1, 0.35) // SPRING</span><span id="s1-val-2" class="hud-muted-dark">ζ = 0.22 · 18.4 rad/s</span></div><div class="specimen-rail"><div id="s1-puck-2" class="specimen-puck" style="background: #ff6452;"></div></div></div>
+                <div id="s1-spec-3" class="specimen-row"><div class="specimen-meta"><span style="color: #5ce1e6;">03 · STEPS(6) // DISCRETE MECHANICAL QUANTIZE</span><span id="s1-val-3" class="hud-muted-dark">q(t) = ⌊6t⌋ / 6 · STEP 6/6</span></div><div class="specimen-rail"><div id="s1-puck-3" class="specimen-puck" style="background: #5ce1e6;"></div></div></div>
+              </div>
+            </div>
+            <div id="s1-graph-card" class="col-right panel-dark">
+              <div class="panel-header-row"><span class="panel-title-dark">PHASE-SPACE DISPLACEMENT // x(t) vs TIME</span><span class="hud-accent-volt">SAMPLING: 60 Hz</span></div>
+              <svg id="s1-svg" viewBox="0 0 860 560" style="width: 100%; height: 540px; display: block;" data-layout-ignore>
+                <rect x="70" y="40" width="740" height="440" fill="#0c0f17" stroke="#2a3348" stroke-width="2" />
+                <line x1="70" y1="150" x2="810" y2="150" stroke="#1e2536" stroke-width="1" stroke-dasharray="6 6" /><line x1="70" y1="260" x2="810" y2="260" stroke="#1e2536" stroke-width="1" stroke-dasharray="6 6" /><line x1="70" y1="370" x2="810" y2="370" stroke="#1e2536" stroke-width="1" stroke-dasharray="6 6" />
+                <line x1="255" y1="40" x2="255" y2="480" stroke="#1e2536" stroke-width="1" stroke-dasharray="6 6" /><line x1="440" y1="40" x2="440" y2="480" stroke="#1e2536" stroke-width="1" stroke-dasharray="6 6" /><line x1="625" y1="40" x2="625" y2="480" stroke="#1e2536" stroke-width="1" stroke-dasharray="6 6" />
+                <line x1="70" y1="480" x2="810" y2="95" stroke="#47536e" stroke-width="2" stroke-dasharray="8 8" /><line x1="70" y1="95" x2="810" y2="95" stroke="#ff6452" stroke-width="1.5" stroke-opacity="0.55" />
+                <path id="s1-curve-expo" d="M 70 480 C 115 135, 220 98, 810 95" fill="none" stroke="#d4ff00" stroke-width="5" stroke-dasharray="950" stroke-dashoffset="0" />
+                <path id="s1-curve-elastic" d="M 70 480 C 125 480, 150 38, 215 42 C 275 46, 305 142, 370 138 C 435 134, 470 76, 540 82 C 610 88, 670 98, 810 95" fill="none" stroke="#ff6452" stroke-width="4.5" stroke-dasharray="1100" stroke-dashoffset="0" />
+                <path id="s1-curve-steps" d="M 70 480 L 193 480 L 193 416 L 316 416 L 316 352 L 440 352 L 440 288 L 563 288 L 563 224 L 686 224 L 686 160 L 810 160 L 810 95" fill="none" stroke="#5ce1e6" stroke-width="3.5" stroke-dasharray="1300" stroke-dashoffset="0" />
+                <line id="s1-playhead" x1="625" y1="40" x2="625" y2="480" stroke="#f7f6f2" stroke-width="2" />
+                <circle id="s1-dot-expo" cx="625" cy="96" r="9" fill="#d4ff00" stroke="#090a0d" stroke-width="3" /><circle id="s1-dot-elastic" cx="625" cy="91" r="9" fill="#ff6452" stroke="#090a0d" stroke-width="3" /><circle id="s1-dot-steps" cx="625" cy="224" r="8" fill="#5ce1e6" stroke="#090a0d" stroke-width="3" />
+                <text x="82" y="76" fill="#ff6452" font-family="IBM Plex Mono" font-size="17" font-weight="600">OVERSHOOT PEAK x = 1.14</text><text x="82" y="464" fill="#b4bdd0" font-family="IBM Plex Mono" font-size="17">t = 0.00s (ORIGIN)</text><text x="640" y="464" fill="#d4ff00" font-family="IBM Plex Mono" font-size="17" font-weight="600">t = 1.00s (SETTLED)</text>
+              </svg>
+              <div class="panel-header-row" style="border-bottom: none; border-top: 1px solid rgba(180, 189, 208, 0.2); padding-top: 14px; padding-bottom: 0;"><span class="hud-muted-dark">CUBIC-BEZIER(0.16, 1.00, 0.30, 1.00)</span><span class="hud-accent-vermilion">PEAK ACCELERATION: 42.8 m/s²</span></div>
+            </div>
+          </div>
+          <div id="s1-hud-bot" class="hud-bar-dark"><div class="hud-group"><span class="hud-muted-dark">POLARITY: DARK OBSIDIAN (#090A0D)</span><span class="hud-accent-volt">EASING VARIANCE: 4 DISTINCT CURVES ACTIVE</span></div><div class="hud-group"><span id="s1-tc-readout" class="hud-muted-dark">TC 00:00:00:00</span><span class="hud-accent-vermilion">NEXT: 02 / PARALLAX &amp; Z-SPACE →</span></div></div>
+        </div>
+      </div>
+      <!-- ACT II (7.50s - 15.00s): 02 / PARALLAX & Z-SPACE -->
+      <div id="scene2" class="scene">
+        <div class="bg-grid-dark" data-layout-ignore></div><div class="bg-watermark-dark" data-layout-ignore>02</div>
+        <div class="scene-content">
+          <div id="s2-hud-top" class="hud-bar-dark"><div class="hud-group"><span class="hud-accent-volt">STUDIO REEL // PRINCIPLES OF MOTION</span><span class="hud-muted-dark">DISCIPLINE 02/06 · SPATIAL CAMERA RIGGING</span></div><div class="hud-group"><span id="s2-gimbal-readout" class="hud-muted-dark">PITCH +14.0° · YAW -22.0°</span><span id="s2-frame-readout" class="hud-accent-vermilion">FRAME 0450 / 2700</span></div></div>
+          <div class="stage-split">
+            <div class="col-left">
+              <div id="s2-pill" class="act-pill-dark" style="border-left-color: #5ce1e6; color: #5ce1e6;"><span>ACT 02 // PARALLAX &amp; Z-SPACE</span><span>PERSPECTIVE: 1250PX</span></div>
+              <div class="hero-stack"><div id="s2-title-1" class="display-line-dark">DEPTH IS</div><div id="s2-title-2" class="display-line-cyan">ARCHITECTURAL</div><div id="s2-title-3" class="display-line-light-wt">PARALLAX.</div></div>
+              <p id="s2-thesis" class="thesis-dark">Flat canvases collapse hierarchy. True spatial choreography separates planes across Z-depth so orbital camera rotation reveals parallax velocity gradients.</p>
+              <div class="depth-table">
+                <div id="s2-row-1" class="depth-row" style="border-left-color: #d4ff00;"><span class="hud-accent-volt">PLANE 01 // OPTICAL RETICLE HUD</span><span>Z = +200px · PARALLAX 1.42×</span></div>
+                <div id="s2-row-2" class="depth-row" style="border-left-color: #ff6452;"><span class="hud-accent-vermilion">PLANE 02 // KINETIC VECTOR GATE</span><span>Z = +100px · PARALLAX 1.18×</span></div>
+                <div id="s2-row-3" class="depth-row" style="border-left-color: #f7f6f2;"><span>PLANE 03 // FOCAL ANCHOR STAGE</span><span>Z = 0px · PARALLAX 1.00×</span></div>
+                <div id="s2-row-4" class="depth-row" style="border-left-color: #5ce1e6;"><span style="color: #5ce1e6;">PLANE 04 // TELEMETRY MATRIX</span><span>Z = -100px · PARALLAX 0.84×</span></div>
+                <div id="s2-row-5" class="depth-row" style="border-left-color: #b4bdd0;"><span class="hud-muted-dark">PLANE 05 // DEEP HORIZON LATTICE</span><span>Z = -200px · PARALLAX 0.68×</span></div>
+              </div>
+            </div>
+            <div id="s2-viewport" class="col-right stage-3d-viewport" data-layout-allow-overflow>
+              <svg viewBox="0 0 880 680" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1;" data-layout-ignore><line x1="40" y1="40" x2="840" y2="640" stroke="#243048" stroke-width="1.5" stroke-dasharray="6 6" /><line x1="840" y1="40" x2="40" y2="640" stroke="#243048" stroke-width="1.5" stroke-dasharray="6 6" /><rect x="70" y="60" width="740" height="560" fill="none" stroke="#1e2638" stroke-width="1.5" /><circle cx="440" cy="340" r="240" fill="none" stroke="#1e2638" stroke-width="1.5" stroke-dasharray="8 8" /></svg>
+              <div id="s2-rig" class="rig-3d" data-layout-ignore>
+                <div id="s2-p5" class="plane-3d" style="top: 12px; left: 10px; border-color: #93a4c4; background: #121826;"><span class="plane-tag" style="color: #d0d8e8;">L05 // HORIZON · Z = -200PX</span><span class="plane-metric" style="color: #d0d8e8;">0.68×</span></div>
+                <div id="s2-p4" class="plane-3d" style="top: 112px; left: 72px; border-color: #5ce1e6; background: #121a2a;"><span class="plane-tag" style="color: #5ce1e6;">L04 // TELEMETRY · Z = -100PX</span><span class="plane-metric" style="color: #5ce1e6;">0.84×</span></div>
+                <div id="s2-p3" class="plane-3d" style="top: 212px; left: 134px; border-color: #f7f6f2; background: #161f33;"><span class="plane-tag">L03 // ANCHOR · Z = 0PX</span><span class="plane-metric" style="color: #f7f6f2;">1.00×</span></div>
+                <div id="s2-p2" class="plane-3d" style="top: 312px; left: 196px; border-color: #ff6452; background: #1e1826;"><span class="plane-tag" style="color: #ff6452;">L02 // FRUSTUM · Z = +100PX</span><span class="plane-metric" style="color: #ff6452;">1.18×</span></div>
+                <div id="s2-p1" class="plane-3d" style="top: 412px; left: 258px; border-color: #d4ff00; background: #161f22;"><span class="plane-tag" style="color: #d4ff00;">L01 // RETICLE · Z = +200PX</span><span class="plane-metric" style="color: #d4ff00;">1.42×</span></div>
+              </div>
+            </div>
+          </div>
+          <div id="s2-hud-bot" class="hud-bar-dark"><div class="hud-group"><span class="hud-muted-dark">CAMERA RIG: 3-AXIS EULER GIMBAL</span><span class="hud-accent-volt">DEPTH SEPARATION: 400PX TOTAL Z-SPAN</span></div><div class="hud-group"><span id="s2-tc-readout" class="hud-muted-dark">TC 00:00:07:30</span><span class="hud-accent-vermilion">NEXT: 03 / TELEMETRY IN MOTION →</span></div></div>
+        </div>
+      </div>
+      <!-- ACT III (15.00s - 22.50s): 03 / TELEMETRY IN MOTION -->
+      <div id="scene3" class="scene">
+        <div class="bg-grid-dark" data-layout-ignore></div><div class="bg-watermark-dark" data-layout-ignore>03</div>
+        <div class="scene-content">
+          <div id="s3-hud-top" class="hud-bar-dark"><div class="hud-group"><span class="hud-accent-volt">STUDIO REEL // PRINCIPLES OF MOTION</span><span class="hud-muted-dark">DISCIPLINE 03/06 · DATA &amp; SIGNAL CHOREOGRAPHY</span></div><div class="hud-group"><span class="hud-muted-dark">STREAM: DETERMINISTIC 60FPS</span><span id="s3-frame-readout" class="hud-accent-vermilion">FRAME 0900 / 2700</span></div></div>
+          <div style="display: flex; flex-direction: row; align-items: flex-end; justify-content: space-between; width: 100%;">
+            <div style="display: flex; flex-direction: column; gap: 10px;"><div id="s3-pill" class="act-pill-dark"><span>ACT 03 // TELEMETRY IN MOTION</span><span>TABULAR-NUMS + SVG SPLINES</span></div><div style="display: flex; flex-direction: row; align-items: baseline; gap: 22px;"><span id="s3-title-1" class="display-line-dark" style="font-size: 96px;">DATA IS</span><span id="s3-title-2" class="display-line-light-wt" style="font-size: 92px;">LIVE SIGNAL</span><span id="s3-title-3" class="display-line-vermilion" style="font-size: 96px;">GEOMETRY.</span></div></div>
+            <div id="s3-lock-badge" class="act-pill-dark" style="border-left-color: #ff6452; color: #ff6452;"><span>ANOMALY LOCK // Δσ = +4.82 AT t=18.5s</span></div>
+          </div>
+          <div class="stage-split">
+            <div id="s3-chart-panel" class="col-right panel-dark">
+              <div class="panel-header-row"><span class="panel-title-dark">MULTI-STREAM TRAJECTORY SPLINE // CONFIDENCE CORRIDOR (±2σ)</span><span id="s3-cursor-readout" class="hud-accent-volt">SAMPLE #0900 · Y = +98.42</span></div>
+              <svg id="s3-svg" viewBox="0 0 1060 440" style="width: 100%; height: 420px; display: block;" data-layout-ignore>
+                <rect x="60" y="30" width="960" height="360" fill="#0b0e16" stroke="#2a3348" stroke-width="2" />
+                <line x1="60" y1="120" x2="1020" y2="120" stroke="#1d2436" stroke-width="1" stroke-dasharray="6 6" /><line x1="60" y1="210" x2="1020" y2="210" stroke="#1d2436" stroke-width="1" stroke-dasharray="6 6" /><line x1="60" y1="300" x2="1020" y2="300" stroke="#1d2436" stroke-width="1" stroke-dasharray="6 6" />
+                <line x1="300" y1="30" x2="300" y2="390" stroke="#1d2436" stroke-width="1" stroke-dasharray="6 6" /><line x1="540" y1="30" x2="540" y2="390" stroke="#1d2436" stroke-width="1" stroke-dasharray="6 6" /><line x1="780" y1="30" x2="780" y2="390" stroke="#1d2436" stroke-width="1" stroke-dasharray="6 6" />
+                <polygon id="s3-corridor" points="60,320 220,260 380,275 540,165 700,145 860,68 1020,52 1020,125 860,142 700,215 540,235 380,335 220,325 60,365" fill="rgba(212, 255, 0, 0.12)" />
+                <path id="s3-spline-base" d="M 60 340 C 180 310, 280 330, 420 260 C 560 190, 680 230, 820 155 C 900 120, 960 110, 1020 96" fill="none" stroke="#5ce1e6" stroke-width="3.5" stroke-dasharray="1200" stroke-dashoffset="0" />
+                <path id="s3-spline-err" d="M 60 355 C 200 345, 340 295, 500 315 C 640 330, 740 115, 860 95 C 930 84, 980 130, 1020 140" fill="none" stroke="#ff6452" stroke-width="3" stroke-dasharray="8 6" />
+                <path id="s3-spline-main" d="M 60 342 C 160 285, 290 310, 420 225 C 550 140, 670 195, 860 88 C 930 58, 980 72, 1020 68" fill="none" stroke="#d4ff00" stroke-width="5" stroke-dasharray="1250" stroke-dashoffset="0" />
+                <line id="s3-scanline" x1="860" y1="30" x2="860" y2="390" stroke="#f7f6f2" stroke-width="2" />
+                <g id="s3-anomaly-target" transform="translate(860, 88)"><circle cx="0" cy="0" r="24" fill="none" stroke="#ff6452" stroke-width="2.5" /><circle cx="0" cy="0" r="8" fill="#d4ff00" /><line x1="-34" y1="0" x2="-14" y2="0" stroke="#ff6452" stroke-width="2" /><line x1="14" y1="0" x2="34" y2="0" stroke="#ff6452" stroke-width="2" /><line x1="0" y1="-34" x2="0" y2="-14" stroke="#ff6452" stroke-width="2" /><line x1="0" y1="14" x2="0" y2="34" stroke="#ff6452" stroke-width="2" /></g>
+                <text x="680" y="62" fill="#ff6452" font-family="IBM Plex Mono" font-size="17" font-weight="600">PEAK INFLECTION +4.82σ</text><text x="80" y="68" fill="#d4ff00" font-family="IBM Plex Mono" font-size="17" font-weight="600">PRIMARY SIGNAL S1(t)</text><text x="80" y="94" fill="#5ce1e6" font-family="IBM Plex Mono" font-size="17">REFERENCE BASELINE S0(t)</text>
+              </svg>
+              <div class="panel-header-row" style="border-bottom: none; border-top: 1px solid rgba(180, 189, 208, 0.2); padding-top: 12px; padding-bottom: 0;"><span class="hud-muted-dark">INTERPOLATION: CATMULL-ROM CENTRIPETAL</span><span class="hud-accent-volt">ZERO-LATENCY SEEK VERIFIED</span></div>
+            </div>
+            <div class="kpi-stack">
+              <div id="s3-kpi-1" class="kpi-card"><div class="panel-header-row"><span class="hud-muted-dark">01 // THROUGHPUT VELOCITY</span><span class="hud-accent-volt">+14.8% LIFT</span></div><div id="s3-num-1" class="kpi-value" style="color: #d4ff00;">98.42 GB/s</div><div class="hud-muted-dark" style="font-size: 17px;">SUSTAINED PIPELINE BANDWIDTH</div></div>
+              <div id="s3-kpi-2" class="kpi-card"><div class="panel-header-row"><span class="hud-muted-dark">02 // PHASE COHERENCE</span><span style="color: #5ce1e6;">LOCKED</span></div><div id="s3-num-2" class="kpi-value" style="color: #f7f6f2;">99.94 %</div><div class="hud-muted-dark" style="font-size: 17px;">CROSS-CHANNEL SYNCHRONIZATION</div></div>
+              <div id="s3-kpi-3" class="kpi-card"><div class="panel-header-row"><span class="hud-muted-dark">03 // FRAME JITTER FLOOR</span><span class="hud-accent-vermilion">SUB-MS</span></div><div id="s3-num-3" class="kpi-value" style="color: #ff6452;">0.012 ms</div><div class="hud-muted-dark" style="font-size: 17px;">DETERMINISTIC CAPTURE VARIANCE</div></div>
+            </div>
+          </div>
+          <div id="s3-hud-bot" class="hud-bar-dark"><div class="hud-group"><span class="hud-muted-dark">OPEN-TYPE FEATURE: TABULAR-NUMS ACTIVE</span><span class="hud-accent-volt">SPLINE RESOLUTION: 2,700 SAMPLES</span></div><div class="hud-group"><span id="s3-tc-readout" class="hud-muted-dark">TC 00:00:15:00</span><span class="hud-accent-vermilion">NEXT: POLARITY INVERSION (ACT 04) →</span></div></div>
+        </div>
+      </div>
+      <!-- ACT IV (22.50s - 30.00s): 04 / VECTOR MORPHOLOGY -->
+      <div id="scene4" class="scene">
+        <div class="bg-grid-light" data-layout-ignore></div><div class="bg-watermark-light" data-layout-ignore>04</div>
+        <div class="scene-content">
+          <div id="s4-hud-top" class="hud-bar-light"><div class="hud-group"><span class="hud-accent-crimson">STUDIO REEL // PRINCIPLES OF MOTION</span><span class="hud-muted-light">DISCIPLINE 04/06 · SWISS VECTOR MORPHOLOGY</span></div><div class="hud-group"><span class="hud-accent-cobalt">POLARITY: ARCHIVAL PAPER (#F4F1EA)</span><span id="s4-frame-readout" class="hud-accent-crimson">FRAME 1350 / 2700</span></div></div>
+          <div class="stage-split">
+            <div class="col-left">
+              <div id="s4-pill" class="act-pill-light"><span>ACT 04 // VECTOR MORPHOLOGY</span><span>MÜLLER-BROCKMANN × BASS</span></div>
+              <div class="hero-stack"><div id="s4-title-1" class="display-line-ink">FORM IS</div><div id="s4-title-2" class="display-line-crimson">PURE <span class="serif-counter">Vector</span></div><div id="s4-title-3" class="display-line-cobalt">TENSION.</div></div>
+              <p id="s4-thesis" class="thesis-light">Inverting canvas polarity resets ocular fatigue. On raw archival paper, geometric primitives, golden-ratio calipers, and counter-rotating apertures command absolute graphic authority.</p>
+              <div class="geo-spec-grid">
+                <div id="s4-card-1" class="geo-spec-card"><span class="hud-muted-light" style="font-size: 17px; font-weight: 600;">GOLDEN RATIO</span><span class="geo-spec-num">1.618</span><span class="hud-accent-crimson" style="font-size: 17px;">HARMONIC MODULUS</span></div>
+                <div id="s4-card-2" class="geo-spec-card"><span class="hud-muted-light" style="font-size: 17px; font-weight: 600;">APERTURE BLADES</span><span id="s4-angle-readout" class="geo-spec-num" style="color: #b01204;">180.0°</span><span class="hud-accent-cobalt" style="font-size: 17px;">COUNTER-ROTATION</span></div>
+                <div id="s4-card-3" class="geo-spec-card"><span class="hud-muted-light" style="font-size: 17px; font-weight: 600;">GRID SUBDIVISION</span><span class="geo-spec-num" style="color: #0033b8;">12 × 9</span><span class="hud-muted-light" style="font-size: 17px;">SWISS ORTHOGONAL</span></div>
+              </div>
+            </div>
+            <div id="s4-geo-panel" class="col-right panel-light">
+              <div class="panel-header-row-light"><span class="panel-title-light">CONSTRUCTIVIST APERTURE // GOLDEN RATIO RIG</span><span class="hud-accent-crimson">SCALE: 1:1 ORTHO</span></div>
+              <svg id="s4-svg" viewBox="0 0 860 560" style="width: 100%; height: 530px; display: block;" data-layout-ignore>
+                <rect x="60" y="30" width="740" height="500" fill="#f4f1ea" stroke="#0b0c10" stroke-width="3" />
+                <line x1="60" y1="280" x2="800" y2="280" stroke="#0b0c10" stroke-width="1.5" stroke-dasharray="8 8" /><line x1="430" y1="30" x2="430" y2="530" stroke="#0b0c10" stroke-width="1.5" stroke-dasharray="8 8" /><line x1="60" y1="30" x2="800" y2="530" stroke="#b01204" stroke-width="1.5" stroke-opacity="0.45" /><line x1="800" y1="30" x2="60" y2="530" stroke="#0033b8" stroke-width="1.5" stroke-opacity="0.45" />
+                <g id="s4-rotor-outer" transform="translate(430, 280)"><circle cx="0" cy="0" r="210" fill="none" stroke="#0b0c10" stroke-width="4" /><circle cx="0" cy="0" r="186" fill="none" stroke="#b01204" stroke-width="18" stroke-dasharray="146 146" /><line x1="-226" y1="0" x2="-194" y2="0" stroke="#0b0c10" stroke-width="5" /><line x1="194" y1="0" x2="226" y2="0" stroke="#0b0c10" stroke-width="5" /><line x1="0" y1="-226" x2="0" y2="-194" stroke="#0b0c10" stroke-width="5" /><line x1="0" y1="194" x2="0" y2="226" stroke="#0b0c10" stroke-width="5" /></g>
+                <g id="s4-rotor-mid" transform="translate(430, 280)"><rect x="-112" y="-112" width="224" height="224" fill="none" stroke="#0033b8" stroke-width="5" /><rect x="-112" y="-112" width="224" height="224" fill="none" stroke="#0b0c10" stroke-width="3" transform="rotate(45)" /></g>
+                <g id="s4-rotor-inner" transform="translate(430, 280)"><polygon points="0,-92 26,-26 92,0 26,26 0,92 -26,26 -92,0 -26,-26" fill="#b01204" /><circle cx="0" cy="0" r="28" fill="#f4f1ea" stroke="#0b0c10" stroke-width="5" /><circle cx="0" cy="0" r="9" fill="#0b0c10" /></g>
+                <rect x="84" y="54" width="194" height="42" fill="#0b0c10" /><text x="98" y="81" fill="#f4f1ea" font-family="IBM Plex Mono" font-size="17" font-weight="600">FIG 04.A // IRIS</text><rect x="582" y="464" width="194" height="42" fill="#b01204" /><text x="596" y="491" fill="#f4f1ea" font-family="IBM Plex Mono" font-size="17" font-weight="600">ω = +60.0 DEG/S</text>
+              </svg>
+              <div class="panel-header-row-light" style="border-bottom: none; border-top: 2px solid #0b0c10; padding-top: 12px; padding-bottom: 0;"><span class="hud-muted-light">CONSTRUCT: EUCLIDEAN COMPASS &amp; RULE</span><span class="hud-accent-cobalt">CONTRAST RATIO: 17.6:1 (AAA)</span></div>
+            </div>
+          </div>
+          <div id="s4-hud-bot" class="hud-bar-light"><div class="hud-group"><span class="hud-muted-light">SURFACE: ARCHIVAL PAPER (#F4F1EA)</span><span class="hud-accent-crimson">INK: CARBON (#0B0C10) + CRIMSON (#B01204)</span></div><div class="hud-group"><span id="s4-tc-readout" class="hud-muted-light">TC 00:00:22:30</span><span class="hud-accent-cobalt">NEXT: 05 / ACOUSTIC RESONANCE →</span></div></div>
+        </div>
+      </div>
+      <!-- ACT V (30.00s - 37.50s): 05 / ACOUSTIC RESONANCE -->
+      <div id="scene5" class="scene">
+        <div class="bg-grid-dark" data-layout-ignore></div><div class="bg-watermark-dark" data-layout-ignore>05</div>
+        <div class="scene-content">
+          <div id="s5-hud-top" class="hud-bar-dark"><div class="hud-group"><span class="hud-accent-volt">STUDIO REEL // PRINCIPLES OF MOTION</span><span class="hud-muted-dark">DISCIPLINE 05/06 · 120 BPM AUDIO-REACTIVE CHOREOGRAPHY</span></div><div class="hud-group"><span id="s5-rms-readout" class="hud-accent-volt">RMS: 0.72 · BEAT LOCK</span><span id="s5-frame-readout" class="hud-accent-vermilion">FRAME 1800 / 2700</span></div></div>
+          <div class="stage-split">
+            <div class="col-left">
+              <div id="s5-pill" class="act-pill-dark"><span>ACT 05 // ACOUSTIC RESONANCE</span><span>PER-FRAME AUDIO_DATA[2700]</span></div>
+              <div id="s5-hero-pulse" class="hero-stack"><div id="s5-title-1" class="display-line-dark">SOUND IS</div><div id="s5-title-2" class="display-line-light-wt"><span class="serif-counter">Visible</span></div><div id="s5-title-3" class="display-line-vermilion">ARCHITECTURE.</div></div>
+              <p id="s5-thesis" class="thesis-dark">Every 16.7ms frame samples 16 normalized frequency bands from the synthesized 120 BPM score. Sub-bass drives spatial mass; high transients sharpen geometric tension.</p>
+              <div class="acoustic-meter-stack">
+                <div id="s5-meter-0" class="acoustic-row"><div class="specimen-meta"><span class="hud-accent-volt">BAND 00 // SUB-BASS FUNDAMENTAL (46–65 Hz)</span><span id="s5-bval-0" class="hud-muted-dark">0.84 AMP</span></div><div class="acoustic-track"><div id="s5-bfill-0" class="acoustic-fill" style="background: #d4ff00;"></div></div></div>
+                <div id="s5-meter-1" class="acoustic-row"><div class="specimen-meta"><span class="hud-accent-vermilion">BAND 04 // HARMONIC WARMTH (110–220 Hz)</span><span id="s5-bval-1" class="hud-muted-dark">0.68 AMP</span></div><div class="acoustic-track"><div id="s5-bfill-1" class="acoustic-fill" style="background: #ff6452;"></div></div></div>
+                <div id="s5-meter-2" class="acoustic-row"><div class="specimen-meta"><span style="color: #5ce1e6;">BAND 08 // TRANSIENT PERCUSSION (880–1760 Hz)</span><span id="s5-bval-2" class="hud-muted-dark">0.74 AMP</span></div><div class="acoustic-track"><div id="s5-bfill-2" class="acoustic-fill" style="background: #5ce1e6;"></div></div></div>
+                <div id="s5-meter-3" class="acoustic-row"><div class="specimen-meta"><span style="color: #f7f6f2;">BAND 12 // CRYSTALLINE CLOCK (6.4 kHz)</span><span id="s5-bval-3" class="hud-muted-dark">0.62 AMP</span></div><div class="acoustic-track"><div id="s5-bfill-3" class="acoustic-fill" style="background: #f7f6f2;"></div></div></div>
+              </div>
+            </div>
+            <div id="s5-chamber-card" class="col-right panel-dark">
+              <div class="panel-header-row"><span class="panel-title-dark">HARMONIC CHAMBER // LISSAJOUS 3:4 PHASE LOCK</span><span id="s5-beat-indicator" class="hud-accent-volt">BEAT 61 / 90</span></div>
+              <svg id="s5-svg" viewBox="0 0 860 560" style="width: 100%; height: 530px; display: block;" data-layout-ignore>
+                <rect x="60" y="30" width="740" height="500" fill="#0b0e16" stroke="#2b344a" stroke-width="2" /><line x1="60" y1="280" x2="800" y2="280" stroke="#1e2536" stroke-width="1.5" /><line x1="430" y1="30" x2="430" y2="530" stroke="#1e2536" stroke-width="1.5" />
+                <g id="s5-rings-group" transform="translate(430, 280)"><circle id="s5-ring-outer" cx="0" cy="0" r="210" fill="none" stroke="#2b344a" stroke-width="2" stroke-dasharray="10 8" /><circle id="s5-ring-bass" cx="0" cy="0" r="165" fill="none" stroke="#d4ff00" stroke-width="5" /><circle id="s5-ring-mid" cx="0" cy="0" r="122" fill="none" stroke="#ff6452" stroke-width="4" stroke-dasharray="48 18" /><circle id="s5-ring-high" cx="0" cy="0" r="82" fill="none" stroke="#5ce1e6" stroke-width="3.5" /><path id="s5-lissajous" d="M 0,-130 C 110,-130 130,-40 0,0 C -130,40 -110,130 0,130 C 110,130 130,40 0,0 C -130,-40 -110,-130 0,-130 Z" fill="none" stroke="#5ce1e6" stroke-width="2.5" stroke-opacity="0.85" /><circle id="s5-ring-core" cx="0" cy="0" r="36" fill="rgba(212, 255, 0, 0.18)" stroke="#f7f6f2" stroke-width="3" /><polygon id="s5-diamond" points="0,-145 145,0 0,145 -145,0" fill="none" stroke="#ff6452" stroke-width="2.5" /></g>
+                <text x="84" y="68" fill="#d4ff00" font-family="IBM Plex Mono" font-size="17" font-weight="600">RESONANCE FREQ: f0 = 55.0 Hz (A1)</text><text x="84" y="504" fill="#b4bdd0" font-family="IBM Plex Mono" font-size="17">DETERMINISTIC SAMPLE LOOP: tl.call() @ 60Hz</text>
+              </svg>
+              <div class="panel-header-row" style="border-bottom: none; border-top: 1px solid rgba(180, 189, 208, 0.2); padding-top: 12px; padding-bottom: 0;"><span class="hud-muted-dark">AUDIO SOURCE: SYNTHESIZED STEREO PCM (44.1kHz)</span><span class="hud-accent-vermilion">ZERO RUNTIME WEB-AUDIO DRIFT</span></div>
+            </div>
+          </div>
+          <div id="s5-hud-bot" class="hud-bar-dark"><div class="hud-group"><span class="hud-muted-dark">SYNC ENGINE: PRE-EXTRACTED 16-BAND MATRIX</span><span class="hud-accent-volt">TEMPO LOCK: 120.00 BPM (0.500s / BEAT)</span></div><div class="hud-group"><span id="s5-tc-readout" class="hud-muted-dark">TC 00:00:30:00</span><span class="hud-accent-vermilion">NEXT: 06 / SYMPHONIC SYNTHESIS →</span></div></div>
+        </div>
+      </div>
+      <!-- ACT VI (37.50s - 45.00s): 06 / SYMPHONIC SYNTHESIS -->
+      <div id="scene6" class="scene">
+        <div class="bg-grid-light" data-layout-ignore></div><div class="bg-watermark-light" data-layout-ignore>06</div>
+        <div class="scene-content">
+          <div id="s6-hud-top" class="hud-bar-light"><div class="hud-group"><span class="hud-accent-crimson">STUDIO REEL // PRINCIPLES OF MOTION</span><span class="hud-muted-light">ACT 06/06 · ARCHITECTURAL CONVERGENCE</span></div><div class="hud-group"><span class="hud-accent-cobalt">ALL 5 MOTION DISCIPLINES UNIFIED</span><span id="s6-frame-readout" class="hud-accent-crimson">FRAME 2250 / 2700</span></div></div>
+          <div id="s6-hero-banner" style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; width: 100%; padding: 22px 32px; background: #e6e1d6; border: 3px solid #0b0c10;">
+            <div style="display: flex; flex-direction: column; gap: 6px;"><div class="act-pill-light"><span>ACT 06 // SYMPHONIC SYNTHESIS</span><span>MASTER ARCHITECTURAL LOCK</span></div><div style="display: flex; flex-direction: row; align-items: baseline; gap: 20px;"><span class="display-line-ink" style="font-size: 92px;">MOTION IS</span><span class="display-line-crimson" style="font-size: 88px;"><span class="serif-counter">Precision</span></span><span class="display-line-cobalt" style="font-size: 92px;">MADE VISIBLE.</span></div></div>
+            <div id="s6-master-lock" style="display: flex; flex-direction: column; align-items: flex-end; justify-content: center; padding: 18px 28px; background: #0b0c10; color: #f4f1ea; min-width: 390px;"><span style="font-size: 17px; color: #d4ff00; font-weight: 600;">MASTER TIMELINE CONVERGENCE</span><span id="s6-big-counter" style="font-family: 'Big Shoulders Display', sans-serif; font-size: 76px; font-weight: 900; line-height: 0.95; color: #f7f6f2; font-variant-numeric: tabular-nums;">2700 / 2700</span><span style="font-size: 17px; color: #b4bdd0;">45.00 SECONDS · 60.0 FPS · Δt = 0.00ms</span></div>
+          </div>
+          <div class="bento-grid-5">
+            <div id="s6-bento-1" class="bento-card"><div style="display: flex; flex-direction: column; gap: 8px;"><span class="hud-accent-crimson" style="font-size: 17px; font-weight: 600;">DISCIPLINE 01</span><span class="bento-num">INERTIA</span><span class="hud-muted-light" style="font-size: 17px;">Cubic-Bezier &amp; Underdamped Spring Derivatives</span></div><svg viewBox="0 0 260 110" style="width: 100%; height: 100px;" data-layout-ignore><rect x="4" y="4" width="252" height="102" fill="#0b0c10" /><path d="M 16 92 C 45 20, 95 18, 244 18" fill="none" stroke="#d4ff00" stroke-width="4" /><path d="M 16 92 C 50 92, 65 8, 105 14 C 145 20, 175 24, 244 18" fill="none" stroke="#ff6452" stroke-width="3" /></svg><span class="bento-status">01 // VERIFIED</span></div>
+            <div id="s6-bento-2" class="bento-card"><div style="display: flex; flex-direction: column; gap: 8px;"><span class="hud-accent-cobalt" style="font-size: 17px; font-weight: 600;">DISCIPLINE 02</span><span class="bento-num">Z-SPACE</span><span class="hud-muted-light" style="font-size: 17px;">5-Layer 3D Perspective Camera Frustum</span></div><svg viewBox="0 0 260 110" style="width: 100%; height: 100px;" data-layout-ignore><rect x="4" y="4" width="252" height="102" fill="#0b0c10" /><rect x="36" y="24" width="110" height="64" fill="none" stroke="#5ce1e6" stroke-width="2.5" /><rect x="76" y="16" width="110" height="64" fill="none" stroke="#ff6452" stroke-width="2.5" /><rect x="116" y="28" width="110" height="64" fill="none" stroke="#d4ff00" stroke-width="3" /></svg><span class="bento-status">02 // VERIFIED</span></div>
+            <div id="s6-bento-3" class="bento-card"><div style="display: flex; flex-direction: column; gap: 8px;"><span class="hud-accent-crimson" style="font-size: 17px; font-weight: 600;">DISCIPLINE 03</span><span class="bento-num">TELEMETRY</span><span class="hud-muted-light" style="font-size: 17px;">Catmull-Rom Splines &amp; Tabular Readouts</span></div><svg viewBox="0 0 260 110" style="width: 100%; height: 100px;" data-layout-ignore><rect x="4" y="4" width="252" height="102" fill="#0b0c10" /><path d="M 16 86 C 65 40, 120 75, 180 28 C 210 14, 230 22, 244 18" fill="none" stroke="#d4ff00" stroke-width="4" /><circle cx="180" cy="28" r="8" fill="#ff6452" /></svg><span class="bento-status">03 // VERIFIED</span></div>
+            <div id="s6-bento-4" class="bento-card"><div style="display: flex; flex-direction: column; gap: 8px;"><span class="hud-accent-cobalt" style="font-size: 17px; font-weight: 600;">DISCIPLINE 04</span><span class="bento-num">VECTOR</span><span class="hud-muted-light" style="font-size: 17px;">Polarity Inversion &amp; Constructivist Grids</span></div><svg viewBox="0 0 260 110" style="width: 100%; height: 100px;" data-layout-ignore><rect x="4" y="4" width="252" height="102" fill="#0b0c10" /><g id="s6-mini-rotor" transform="translate(130, 55)"><circle cx="0" cy="0" r="36" fill="none" stroke="#f7f6f2" stroke-width="3" stroke-dasharray="28 14" /><polygon points="0,-28 10,-10 28,0 10,10 0,28 -10,10 -28,0 -10,-10" fill="#ff6452" /></g></svg><span class="bento-status">04 // VERIFIED</span></div>
+            <div id="s6-bento-5" class="bento-card"><div style="display: flex; flex-direction: column; gap: 8px;"><span class="hud-accent-crimson" style="font-size: 17px; font-weight: 600;">DISCIPLINE 05</span><span class="bento-num">ACOUSTIC</span><span class="hud-muted-light" style="font-size: 17px;">120 BPM Frame-Accurate Harmonic Sync</span></div><svg viewBox="0 0 260 110" style="width: 100%; height: 100px;" data-layout-ignore><rect x="4" y="4" width="252" height="102" fill="#0b0c10" /><g id="s6-mini-pulse" transform="translate(130, 55)"><circle cx="0" cy="0" r="38" fill="none" stroke="#d4ff00" stroke-width="3.5" /><circle cx="0" cy="0" r="22" fill="none" stroke="#5ce1e6" stroke-width="3" /><circle cx="0" cy="0" r="8" fill="#ff6452" /></g></svg><span class="bento-status">05 // VERIFIED</span></div>
+          </div>
+          <div id="s6-hud-bot" class="hud-bar-light"><div class="hud-group"><span class="hud-accent-crimson">PRINCIPLES OF MOTION // 1920×1080 · 60FPS · 2,700 FRAMES</span><span class="hud-muted-light">DESIGNED &amp; CHOREOGRAPHED IN HYPERFRAMES + GSAP 3.14</span></div><div class="hud-group"><span id="s6-tc-readout" class="hud-muted-light">TC 00:00:45:00</span><span class="hud-accent-cobalt">STATUS: COMPLETE // Q.E.D.</span></div></div>
+        </div>
+      </div>
+      <!-- TRANSITION OVERLAYS -->
+      <div id="wipe1-0" class="wipe-block" style="background: #d4ff00;" data-layout-ignore></div><div id="wipe1-1" class="wipe-block" style="background: #ff4d38;" data-layout-ignore></div><div id="wipe1-2" class="wipe-block" style="background: #5ce1e6;" data-layout-ignore></div><div id="wipe1-3" class="wipe-block" style="background: #f7f6f2;" data-layout-ignore></div><div id="wipe1-4" class="wipe-block" style="background: #131722;" data-layout-ignore></div>
+      <div id="shutter-top" class="shutter-half" data-layout-ignore><span style="font-family: 'Big Shoulders Display', sans-serif; font-size: 72px; font-weight: 900; color: #f7f6f2; letter-spacing: 0.08em;">POLARITY INVERSION // 04</span></div><div id="shutter-bot" class="shutter-half" data-layout-ignore><span style="font-family: 'IBM Plex Mono', monospace; font-size: 24px; font-weight: 600; color: #d4ff00;">OBS #090A0D → PAPER #F4F1EA</span></div>
+      <div id="blind-0" class="blind-strip" style="top: 0px; background: #0b0c10;" data-layout-ignore></div><div id="blind-1" class="blind-strip" style="top: 90px; background: #b01204;" data-layout-ignore></div><div id="blind-2" class="blind-strip" style="top: 180px; background: #0b0c10;" data-layout-ignore></div><div id="blind-3" class="blind-strip" style="top: 270px; background: #0033b8;" data-layout-ignore></div><div id="blind-4" class="blind-strip" style="top: 360px; background: #0b0c10;" data-layout-ignore></div><div id="blind-5" class="blind-strip" style="top: 450px; background: #d4ff00;" data-layout-ignore></div>
+      <div id="blind-6" class="blind-strip" style="top: 540px; background: #0b0c10;" data-layout-ignore></div><div id="blind-7" class="blind-strip" style="top: 630px; background: #b01204;" data-layout-ignore></div><div id="blind-8" class="blind-strip" style="top: 720px; background: #0b0c10;" data-layout-ignore></div><div id="blind-9" class="blind-strip" style="top: 810px; background: #0033b8;" data-layout-ignore></div><div id="blind-10" class="blind-strip" style="top: 900px; background: #0b0c10;" data-layout-ignore></div><div id="blind-11" class="blind-strip" style="top: 990px; background: #d4ff00;" data-layout-ignore></div>
+      <div id="final-fade-overlay" data-layout-ignore></div>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {}; var tl = gsap.timeline({ paused: true });
+      function pad(n, s) { var r = String(n); while (r.length < s) r = "0" + r; return r; }
+      function formatTC(f) { return "TC 00:00:" + pad(Math.floor(f / 60), 2) + ":" + pad(f % 60, 2); }
+      tl.set("#s2-p5", { z: -200 }, 0); tl.set("#s2-p4", { z: -100 }, 0); tl.set("#s2-p3", { z: 0 }, 0); tl.set("#s2-p2", { z: 100 }, 0); tl.set("#s2-p1", { z: 200 }, 0);
+      tl.from("#s1-hud-top", { y: -36, opacity: 0, duration: 0.45, ease: "power3.out" }, 0.12); tl.from("#s1-hud-bot", { y: 36, opacity: 0, duration: 0.45, ease: "power3.out" }, 0.16); tl.from("#s1-pill", { x: -48, opacity: 0, duration: 0.5, ease: "expo.out" }, 0.22); tl.from("#s1-title-1", { y: 64, opacity: 0, duration: 0.55, ease: "expo.out" }, 0.30);
+      tl.from("#s1-title-2", { x: -56, opacity: 0, duration: 0.65, ease: "back.out(1.7)" }, 0.44); tl.from("#s1-title-3", { scale: 0.84, opacity: 0, duration: 0.70, ease: "elastic.out(1.1, 0.4)" }, 0.58); tl.from("#s1-thesis", { y: 28, opacity: 0, duration: 0.55, ease: "power2.out" }, 0.75); tl.from("#s1-spec-1", { x: -40, opacity: 0, duration: 0.45, ease: "expo.out" }, 0.90);
+      tl.from("#s1-spec-2", { x: -40, opacity: 0, duration: 0.45, ease: "power3.out" }, 1.04); tl.from("#s1-spec-3", { x: -40, opacity: 0, duration: 0.45, ease: "circ.out" }, 1.18); tl.from("#s1-graph-card", { x: 60, opacity: 0, duration: 0.65, ease: "expo.out" }, 0.36); tl.from("#s1-curve-expo", { strokeDashoffset: 950, duration: 1.3, ease: "expo.out" }, 1.25);
+      tl.fromTo("#s1-puck-1", { x: 0 }, { x: 716, duration: 1.3, ease: "expo.out" }, 1.25); tl.from("#s1-curve-elastic", { strokeDashoffset: 1100, duration: 1.6, ease: "power2.out" }, 2.20);
+      tl.fromTo("#s1-puck-2", { x: 0 }, { x: 716, duration: 1.6, ease: "elastic.out(1.1, 0.35)" }, 2.20); tl.from("#s1-curve-steps", { strokeDashoffset: 1300, duration: 1.4, ease: "steps(6)" }, 3.30);
+      tl.fromTo("#s1-puck-3", { x: 0 }, { x: 716, duration: 1.4, ease: "steps(6)" }, 3.30); tl.fromTo("#s1-playhead", { attr: { x1: 70, x2: 70 } }, { attr: { x1: 625, x2: 625 }, duration: 4.8, ease: "sine.inOut" }, 1.30);
+      tl.from("#s1-dot-expo, #s1-dot-elastic, #s1-dot-steps", { scale: 0, transformOrigin: "center center", duration: 0.4, stagger: 0.12, ease: "back.out(2)" }, 1.50);
+      /* T12 */
+      var T12 = 7.10; for (var w = 0; w < 5; w++) tl.fromTo("#wipe1-" + w, { x: -1920, opacity: 1 }, { x: 0, opacity: 1, duration: 0.24, ease: "power3.inOut" }, T12 + w * 0.04);
+      tl.set("#scene1", { opacity: 0 }, T12 + 0.34); tl.set("#scene2", { opacity: 1 }, T12 + 0.34); for (var w2 = 0; w2 < 5; w2++) tl.to("#wipe1-" + w2, { x: 1920, duration: 0.24, ease: "power3.inOut" }, T12 + 0.38 + w2 * 0.04);
+      /* ACT II */
+      var S2 = 7.55; tl.from("#s2-hud-top", { y: -32, opacity: 0, duration: 0.45, ease: "power3.out" }, S2 + 0.10); tl.from("#s2-hud-bot", { y: 32, opacity: 0, duration: 0.45, ease: "power3.out" }, S2 + 0.14);
+      tl.from("#s2-pill", { x: -44, opacity: 0, duration: 0.45, ease: "expo.out" }, S2 + 0.18); tl.from("#s2-title-1", { y: 56, opacity: 0, duration: 0.55, ease: "expo.out" }, S2 + 0.24);
+      tl.from("#s2-title-2", { x: -48, opacity: 0, duration: 0.60, ease: "power4.out" }, S2 + 0.36); tl.from("#s2-title-3", { scale: 0.88, opacity: 0, duration: 0.65, ease: "back.out(1.6)" }, S2 + 0.48);
+      tl.from("#s2-thesis", { y: 24, opacity: 0, duration: 0.50, ease: "sine.out" }, S2 + 0.62); tl.from("#s2-row-1, #s2-row-2, #s2-row-3, #s2-row-4, #s2-row-5", { x: -36, opacity: 0, duration: 0.45, stagger: 0.08, ease: "power3.out" }, S2 + 0.72);
+      tl.from("#s2-viewport", { scale: 0.94, opacity: 0, duration: 0.60, ease: "expo.out" }, S2 + 0.28); tl.from("#s2-p5, #s2-p4, #s2-p3, #s2-p2, #s2-p1", { opacity: 0, scale: 0.75, duration: 0.65, stagger: 0.11, ease: "back.out(1.4)" }, S2 + 0.42);
+      tl.fromTo("#s2-rig", { rotationX: 18, rotationY: -24, rotationZ: -2 }, { rotationX: -12, rotationY: 22, rotationZ: 2, duration: 6.4, ease: "sine.inOut" }, S2 + 0.45);
+      /* T23 */
+      var T23 = 14.60; tl.to("#scene2", { scale: 2.3, opacity: 0, filter: "blur(8px)", duration: 0.45, ease: "power3.in" }, T23);
+      tl.fromTo("#scene3", { scale: 0.55, opacity: 0, filter: "blur(8px)" }, { scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.45, ease: "power3.out" }, T23 + 0.12);
+      /* ACT III */
+      var S3 = 15.00; tl.from("#s3-hud-top", { y: -32, opacity: 0, duration: 0.45, ease: "power3.out" }, S3 + 0.10); tl.from("#s3-hud-bot", { y: 32, opacity: 0, duration: 0.45, ease: "power3.out" }, S3 + 0.14);
+      tl.from("#s3-pill", { x: -40, opacity: 0, duration: 0.45, ease: "expo.out" }, S3 + 0.18); tl.from("#s3-title-1, #s3-title-2, #s3-title-3", { y: 44, opacity: 0, duration: 0.55, stagger: 0.09, ease: "expo.out" }, S3 + 0.24);
+      tl.from("#s3-lock-badge", { scale: 0.85, opacity: 0, duration: 0.50, ease: "back.out(1.8)" }, S3 + 0.55); tl.from("#s3-chart-panel", { y: 40, opacity: 0, duration: 0.55, ease: "power3.out" }, S3 + 0.32);
+      tl.from("#s3-kpi-1, #s3-kpi-2, #s3-kpi-3", { x: 52, opacity: 0, duration: 0.55, stagger: 0.12, ease: "expo.out" }, S3 + 0.40); tl.from("#s3-corridor", { opacity: 0, duration: 0.8, ease: "sine.inOut" }, S3 + 0.85);
+      tl.from("#s3-spline-base", { strokeDashoffset: 1200, duration: 2.6, ease: "power2.inOut" }, S3 + 0.65); tl.from("#s3-spline-main", { strokeDashoffset: 1250, duration: 2.9, ease: "expo.out" }, S3 + 0.80);
+      tl.fromTo("#s3-scanline", { attr: { x1: 60, x2: 60 } }, { attr: { x1: 860, x2: 860 }, duration: 3.4, ease: "power2.out" }, S3 + 0.80); tl.from("#s3-anomaly-target", { scale: 0, opacity: 0, svgOrigin: "860 88", duration: 0.55, ease: "elastic.out(1.2, 0.4)" }, S3 + 3.45);
+      /* T34 */
+      var T34 = 22.10; tl.fromTo("#shutter-top", { y: -544, opacity: 1 }, { y: 0, opacity: 1, duration: 0.25, ease: "power3.in" }, T34); tl.fromTo("#shutter-bot", { y: 544, opacity: 1 }, { y: 0, opacity: 1, duration: 0.25, ease: "power3.in" }, T34);
+      tl.set("#scene3", { opacity: 0 }, T34 + 0.26); tl.set("#scene4", { opacity: 1 }, T34 + 0.26); tl.to("#shutter-top", { y: -544, duration: 0.28, ease: "expo.out" }, T34 + 0.32); tl.to("#shutter-bot", { y: 544, duration: 0.28, ease: "expo.out" }, T34 + 0.32);
+      /* ACT IV */
+      var S4 = 22.55; tl.from("#s4-hud-top", { y: -32, opacity: 0, duration: 0.45, ease: "power3.out" }, S4 + 0.12); tl.from("#s4-hud-bot", { y: 32, opacity: 0, duration: 0.45, ease: "power3.out" }, S4 + 0.16);
+      tl.from("#s4-pill", { x: -44, opacity: 0, duration: 0.45, ease: "expo.out" }, S4 + 0.20); tl.from("#s4-title-1", { y: 56, opacity: 0, duration: 0.55, ease: "expo.out" }, S4 + 0.26);
+      tl.from("#s4-title-2", { x: -50, opacity: 0, duration: 0.60, ease: "back.out(1.6)" }, S4 + 0.38); tl.from("#s4-title-3", { y: 48, opacity: 0, duration: 0.60, ease: "power4.out" }, S4 + 0.50);
+      tl.from("#s4-thesis", { y: 24, opacity: 0, duration: 0.50, ease: "sine.out" }, S4 + 0.64); tl.from("#s4-card-1, #s4-card-2, #s4-card-3", { y: 36, opacity: 0, duration: 0.50, stagger: 0.10, ease: "back.out(1.5)" }, S4 + 0.76);
+      tl.from("#s4-geo-panel", { x: 56, opacity: 0, duration: 0.60, ease: "expo.out" }, S4 + 0.30); tl.from("#s4-rotor-outer", { scale: 0.4, opacity: 0, svgOrigin: "430 280", duration: 0.50, ease: "expo.out" }, S4 + 0.35);
+      tl.from("#s4-rotor-mid", { scale: 0.3, opacity: 0, svgOrigin: "430 280", duration: 0.50, ease: "back.out(1.7)" }, S4 + 0.45); tl.from("#s4-rotor-inner", { scale: 0, opacity: 0, svgOrigin: "430 280", duration: 0.50, ease: "elastic.out(1.1, 0.4)" }, S4 + 0.55);
+      tl.to("#s4-rotor-outer", { rotation: 180, svgOrigin: "430 280", duration: 5.7, ease: "sine.inOut" }, S4 + 1.10); tl.to("#s4-rotor-mid", { rotation: -135, svgOrigin: "430 280", duration: 5.7, ease: "power2.inOut" }, S4 + 1.10); tl.to("#s4-rotor-inner", { rotation: 270, svgOrigin: "430 280", duration: 5.7, ease: "expo.inOut" }, S4 + 1.10);
+      /* T45 */
+      var T45 = 29.60; tl.set("#scene5", { opacity: 1, zIndex: 12 }, T45); tl.fromTo("#scene5", { clipPath: "polygon(50% 50%, 50% 50%, 50% 50%, 50% 50%)" }, { clipPath: "polygon(50% -30%, 130% 50%, 50% 130%, -30% 50%)", duration: 0.48, ease: "power3.inOut" }, T45);
+      tl.set("#scene4", { opacity: 0 }, T45 + 0.48); tl.set("#scene5", { clipPath: "none", zIndex: 5 }, T45 + 0.49);
+      /* ACT V */
+      var S5 = 30.00; tl.from("#s5-hud-top", { y: -32, opacity: 0, duration: 0.45, ease: "power3.out" }, S5 + 0.12); tl.from("#s5-hud-bot", { y: 32, opacity: 0, duration: 0.45, ease: "power3.out" }, S5 + 0.16);
+      tl.from("#s5-pill", { x: -44, opacity: 0, duration: 0.45, ease: "expo.out" }, S5 + 0.20); tl.from("#s5-title-1", { y: 56, opacity: 0, duration: 0.50, ease: "expo.out" }, S5 + 0.25);
+      tl.from("#s5-title-2", { x: -48, opacity: 0, duration: 0.55, ease: "back.out(1.7)" }, S5 + 0.36); tl.from("#s5-title-3", { scale: 0.86, opacity: 0, duration: 0.60, ease: "elastic.out(1.1, 0.4)" }, S5 + 0.48);
+      tl.from("#s5-thesis", { y: 24, opacity: 0, duration: 0.45, ease: "sine.out" }, S5 + 0.60); tl.from("#s5-meter-0, #s5-meter-1, #s5-meter-2, #s5-meter-3", { x: -36, opacity: 0, duration: 0.45, stagger: 0.08, ease: "power3.out" }, S5 + 0.68);
+      tl.from("#s5-chamber-card", { x: 56, opacity: 0, duration: 0.55, ease: "expo.out" }, S5 + 0.30);
+      /* T56 */
+      var T56 = 37.10; for (var b = 0; b < 12; b++) tl.fromTo("#blind-" + b, { x: -1920, opacity: 1 }, { x: 0, opacity: 1, duration: 0.20, ease: "power3.inOut" }, T56 + b * 0.016);
+      tl.set("#scene5", { opacity: 0 }, T56 + 0.26); tl.set("#scene6", { opacity: 1 }, T56 + 0.26); for (var b2 = 0; b2 < 12; b2++) tl.to("#blind-" + b2, { x: 1920, duration: 0.20, ease: "power3.inOut" }, T56 + 0.30 + b2 * 0.016);
+      /* ACT VI */
+      var S6 = 37.55; tl.from("#s6-hud-top", { y: -32, opacity: 0, duration: 0.45, ease: "power3.out" }, S6 + 0.12); tl.from("#s6-hud-bot", { y: 32, opacity: 0, duration: 0.45, ease: "power3.out" }, S6 + 0.16);
+      tl.from("#s6-hero-banner", { y: 40, opacity: 0, duration: 0.55, ease: "expo.out" }, S6 + 0.22); tl.from("#s6-master-lock", { scale: 0.88, opacity: 0, duration: 0.60, ease: "back.out(1.7)" }, S6 + 0.38);
+      tl.from("#s6-bento-1, #s6-bento-2, #s6-bento-3, #s6-bento-4, #s6-bento-5", { y: 52, opacity: 0, duration: 0.55, stagger: 0.09, ease: "expo.out" }, S6 + 0.48);
+      tl.to("#s6-mini-rotor", { rotation: 360, svgOrigin: "130 55", duration: 5.8, ease: "none" }, S6 + 0.50); tl.to("#s6-mini-pulse", { scale: 1.18, svgOrigin: "130 55", duration: 0.5, repeat: 10, yoyo: true, ease: "sine.inOut" }, S6 + 0.50);
+      tl.to("#final-fade-overlay", { opacity: 1, duration: 0.80, ease: "power2.inOut" }, 44.20);
+      /* PER-FRAME LOOP (60Hz / 2,700 FRAMES) */
+      var audioFrames = (window.AUDIO_DATA && window.AUDIO_DATA.frames) ? window.AUDIO_DATA.frames : [];
+      var elS1Frame = document.getElementById("s1-frame-readout"), elS1TC = document.getElementById("s1-tc-readout"), elS2Frame = document.getElementById("s2-frame-readout"), elS2TC = document.getElementById("s2-tc-readout"), elS2Gimbal = document.getElementById("s2-gimbal-readout");
+      var elS3Frame = document.getElementById("s3-frame-readout"), elS3TC = document.getElementById("s3-tc-readout"), elS3Cursor = document.getElementById("s3-cursor-readout"), elS3Num1 = document.getElementById("s3-num-1"), elS3Num2 = document.getElementById("s3-num-2"), elS3Num3 = document.getElementById("s3-num-3");
+      var elS4Frame = document.getElementById("s4-frame-readout"), elS4TC = document.getElementById("s4-tc-readout"), elS4Angle = document.getElementById("s4-angle-readout"), elS5Frame = document.getElementById("s5-frame-readout"), elS5TC = document.getElementById("s5-tc-readout"), elS5Rms = document.getElementById("s5-rms-readout"), elS5Beat = document.getElementById("s5-beat-indicator");
+      var elS5Hero = document.getElementById("s5-hero-pulse"), elS5RingBass = document.getElementById("s5-ring-bass"), elS5RingMid = document.getElementById("s5-ring-mid"), elS5RingHigh = document.getElementById("s5-ring-high"), elS5Diamond = document.getElementById("s5-diamond"), elS5Liss = document.getElementById("s5-lissajous");
+      var elS5Fill0 = document.getElementById("s5-bfill-0"), elS5Fill1 = document.getElementById("s5-bfill-1"), elS5Fill2 = document.getElementById("s5-bfill-2"), elS5Fill3 = document.getElementById("s5-bfill-3"), elS5Val0 = document.getElementById("s5-bval-0"), elS5Val1 = document.getElementById("s5-bval-1"), elS5Val2 = document.getElementById("s5-bval-2"), elS5Val3 = document.getElementById("s5-bval-3");
+      var elS6Frame = document.getElementById("s6-frame-readout"), elS6TC = document.getElementById("s6-tc-readout"), elS6Big = document.getElementById("s6-big-counter");
+      for (var f = 0; f < 2700; f++) {
+        tl.call((function (fIdx) { return function () {
+          var fStr = "FRAME " + pad(fIdx + 1, 4) + " / 2700", tcStr = formatTC(fIdx), tSec = fIdx / 60.0;
+          if (fIdx < 470) { elS1Frame.textContent = fStr; elS1TC.textContent = tcStr; }
+          if (fIdx >= 420 && fIdx < 920) {
+            elS2Frame.textContent = fStr; elS2TC.textContent = tcStr; var p2 = Math.min(1, Math.max(0, (tSec - 7.5) / 7.0)), pitch = (18 - 30 * p2).toFixed(1), yaw = (-24 + 46 * p2).toFixed(1);
+            elS2Gimbal.textContent = "PITCH " + (pitch >= 0 ? "+" : "") + pitch + "° · YAW " + (yaw >= 0 ? "+" : "") + yaw + "°";
+          }
+          if (fIdx >= 870 && fIdx < 1370) {
+            elS3Frame.textContent = fStr; elS3TC.textContent = tcStr; var p3 = Math.min(1, Math.max(0, (tSec - 15.5) / 3.5));
+            elS3Num1.textContent = (42.10 + 56.32 * p3).toFixed(2) + " GB/s"; elS3Num2.textContent = (94.20 + 5.74 * p3).toFixed(2) + " %"; elS3Num3.textContent = (0.180 - 0.168 * p3).toFixed(3) + " ms"; elS3Cursor.textContent = "SAMPLE #" + pad(fIdx, 4) + " · Y = +" + (42.1 + 56.32 * p3).toFixed(2);
+          }
+          if (fIdx >= 1320 && fIdx < 1820) { elS4Frame.textContent = fStr; elS4TC.textContent = tcStr; elS4Angle.textContent = (Math.min(1, Math.max(0, (tSec - 23.0) / 6.2)) * 180.0).toFixed(1) + "°"; }
+          if (fIdx >= 1770 && fIdx < 2270) {
+            elS5Frame.textContent = fStr; elS5TC.textContent = tcStr; var af = audioFrames[fIdx] || { bands: [0.6,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5], rms: 0.6 }, b0 = af.bands[0] || 0.5, b4 = af.bands[4] || 0.5, b8 = af.bands[8] || 0.5, b12 = af.bands[12] || 0.5;
+            elS5Rms.textContent = "RMS: " + (af.rms || 0.6).toFixed(2) + " · 120 BPM LOCK"; elS5Beat.textContent = "BEAT " + pad(Math.min(90, Math.floor(tSec * 2.0) + 1), 2) + " / 90"; elS5Hero.style.transform = "scale(" + (1.0 + (b0 - 0.4) * 0.045).toFixed(4) + ")"; elS5Hero.style.transformOrigin = "left center";
+            elS5RingBass.setAttribute("r", (142 + b0 * 44).toFixed(1)); elS5RingMid.setAttribute("r", (102 + b4 * 36).toFixed(1)); elS5RingMid.setAttribute("transform", "rotate(" + ((fIdx - 1800) * 0.8).toFixed(1) + ")"); elS5RingHigh.setAttribute("r", (64 + b8 * 32).toFixed(1)); elS5Liss.setAttribute("transform", "rotate(" + ((fIdx - 1800) * 0.45).toFixed(1) + ") scale(" + (0.88 + b4 * 0.24).toFixed(3) + ")"); elS5Diamond.setAttribute("transform", "rotate(" + (-(fIdx - 1800) * 0.6).toFixed(1) + ") scale(" + (0.82 + b12 * 0.36).toFixed(3) + ")");
+            elS5Fill0.style.transform = "scaleX(" + Math.max(0.12, b0).toFixed(3) + ")"; elS5Fill1.style.transform = "scaleX(" + Math.max(0.12, b4).toFixed(3) + ")"; elS5Fill2.style.transform = "scaleX(" + Math.max(0.12, b8).toFixed(3) + ")"; elS5Fill3.style.transform = "scaleX(" + Math.max(0.12, b12).toFixed(3) + ")"; elS5Val0.textContent = b0.toFixed(2) + " AMP"; elS5Val1.textContent = b4.toFixed(2) + " AMP"; elS5Val2.textContent = b8.toFixed(2) + " AMP"; elS5Val3.textContent = b12.toFixed(2) + " AMP";
+          }
+          if (fIdx >= 2220) { elS6Frame.textContent = fStr; elS6TC.textContent = tcStr; elS6Big.textContent = pad(fIdx >= 2610 ? 2700 : fIdx + 1, 4) + " / 2700"; }
+        }; })(f), [], f / 60.0);
+      }
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
